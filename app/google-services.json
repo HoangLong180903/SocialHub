@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "846185437733",
+    "project_id": "socialproject-e30a0",
+    "storage_bucket": "socialproject-e30a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:846185437733:android:3855bd132ee670d5373dcc",
+        "android_client_info": {
+          "package_name": "hoanglong180903.myproject.socialhub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnrbQwlldgxVEORlYRuPdmyHzHsDEHOU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

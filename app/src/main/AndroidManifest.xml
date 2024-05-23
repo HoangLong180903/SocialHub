@@ -11,9 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SocialHub"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".view.activity.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
