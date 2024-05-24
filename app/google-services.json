@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "357737938443",
+    "project_id": "socialhubproject-f816b",
+    "storage_bucket": "socialhubproject-f816b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357737938443:android:7a25727f0002d18cd1910e",
+        "android_client_info": {
+          "package_name": "hoanglong180903.myproject.socialhub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDQH9HPbiX2KHcbQGm6CREQvZZCMeY-wQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

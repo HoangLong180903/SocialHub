@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.SignInFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <EditText
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="email"
+            android:id="@+id/edEmail"/>
+        <EditText
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="password"
+            android:id="@+id/edPassword"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:id="@+id/btnLogin"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register here?"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:id="@+id/tvRegister"/>
+    </LinearLayout>
+</FrameLayout>
