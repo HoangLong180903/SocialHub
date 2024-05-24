@@ -31,4 +31,5 @@
         app:layout_constraintStart_toStartOf="@+id/image"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.95" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

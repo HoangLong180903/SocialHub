@@ -43,9 +43,16 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.chatFragment)
                     true
                 }
-
+                R.id.navUser -> {
+                    navController.navigate(R.id.userFragment)
+                    true
+                }
                 else -> false
             }
+        }
+        if (savedInstanceState == null) {
+            navController.navigate(R.id.newsFragment)
+            bottomNavigationView.selectedItemId = R.id.navNews
         }
 
     }
