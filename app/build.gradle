@@ -66,6 +66,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation 'com.google.firebase:firebase-database'
     implementation("com.google.firebase:firebase-firestore")
+    implementation 'com.google.firebase:firebase-storage'
     //circle image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
@@ -76,4 +77,11 @@ dependencies {
     def nav_version = "2.7.7"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    //story
+    implementation 'com.github.OMARIHAMZA:StoryView:1.0.2-alpha'
+    implementation 'com.github.3llomi:CircularStatusView:V1.0.3'
+
+    //action icon
+    implementation "com.github.pgreze:android-reactions:1.3"
 }

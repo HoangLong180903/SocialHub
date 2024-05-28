@@ -1,9 +1,12 @@
 package hoanglong180903.myproject.socialhub.model
 
-class UserModel (
-    val name:String,
-    var image:String? = null,
-    var email:String? = null,
-    var token:String? = null,
-    val id:String
-)
+import java.io.Serializable
+
+class UserModel(
+    var name:String = "",
+    var image:String = "",
+    var email:String = "",
+    var token: String? = "",
+    var id:String = ""
+
+) : Serializable

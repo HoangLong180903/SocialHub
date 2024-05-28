@@ -21,9 +21,9 @@ class SignUpRepository(val application: Application) {
                     val token = database.push().key
                     val user = UserModel(username, "No image", email, token, userID)
                     database.child(userID).setValue(user).addOnCompleteListener {
-                        if (it.isSuccessful){
+                        if (it.isSuccessful) {
                             Log.d("log sign up", "Dang ky thanh cong")
-                        }else{
+                        } else {
                             Log.d("log sign up", "Dang ky ko thanh cong")
 
                         }
