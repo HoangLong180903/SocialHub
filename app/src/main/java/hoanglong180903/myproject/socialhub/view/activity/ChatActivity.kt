@@ -1,12 +1,16 @@
 package hoanglong180903.myproject.socialhub.view.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.zegocloud.uikit.prebuilt.call.ZegoUIKitPrebuiltCallConfig
+import com.zegocloud.uikit.prebuilt.call.ZegoUIKitPrebuiltCallFragment
+import com.zegocloud.uikit.prebuilt.call.invite.ZegoUIKitPrebuiltCallInvitationService
 import hoanglong180903.myproject.socialhub.R
 import hoanglong180903.myproject.socialhub.databinding.ActivityChatBinding
 import hoanglong180903.myproject.socialhub.view.fragment.ChatFragment
+
 
 class ChatActivity : AppCompatActivity() {
     lateinit var binding : ActivityChatBinding

@@ -9,38 +9,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dp"
         android:gravity="center_vertical"
         >
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/_144760"/>
+            android:id="@+id/item_post_imgUser"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/_144760"
+            android:layout_margin="5dp"/>
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center_vertical"
-            android:layout_margin="10dp"
             >
             <TextView
+                android:id="@+id/item_post_tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name"
                 android:textStyle="bold"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 />
             <TextView
+                android:id="@+id/item_post_tvTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="just now"
                 android:textStyle="bold"
-                android:textSize="18dp"
+                android:textSize="13dp"
                 />
         </LinearLayout>
     </LinearLayout>
+    <TextView
+        android:id="@+id/item_post_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textStyle="bold"
+        android:textSize="13dp"
+        android:layout_margin="5dp"
+        />
     <ImageView
+        android:id="@+id/item_post_imgPost"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/bg_edittext"
@@ -49,22 +61,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dp"
         >
+
         <TextView
+            android:id="@+id/item_post_tvEmotions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:text="--- Like"
-            android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_alignParentLeft="true"/>
+            android:textSize="16dp"
+            android:textStyle="bold" />
         <TextView
+            android:id="@+id/item_post_tvComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-- comment"
             android:textStyle="bold"
-            android:textSize="18dp"
-            android:layout_alignParentRight="true"/>
+            android:textSize="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -79,6 +98,7 @@
             android:gravity="center"
             >
             <ImageView
+                android:id="@+id/item_post_iconLike"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/_590951_200"
@@ -88,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:text="Like"
                 android:layout_margin="5dp"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:textStyle="bold"/>
         </LinearLayout>
 
@@ -100,6 +120,7 @@
             android:gravity="center"
             >
             <ImageView
+                android:id="@+id/item_post_iconComment"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/_043"
@@ -109,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:text="Comment"
                 android:layout_margin="5dp"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:textStyle="bold"/>
         </LinearLayout>
     </LinearLayout>

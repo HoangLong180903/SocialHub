@@ -1,12 +1,13 @@
 package hoanglong180903.myproject.socialhub.model
 
 class Posts(
-    var title : String? = "",
-    var imageUrl: String? = "",
-    val timeStamp: Long = 0,
-    var userPost : String ? ="",
-    val commentList: ArrayList<Comment?>? = null,
-    val fillingList : ArrayList<ReleaseEmotions>? = null
-) {
-
-}
+     var pId : String? = "",
+     var pTitle : String? = "",
+     var pLikes :String? = "",
+     var pComments : String? = "",
+     var pImage : String? = "",
+     var pTime : Long = 0,
+     var uid : String? = "",
+     var uName : String? = "",
+     var uImage: String? = "",
+)

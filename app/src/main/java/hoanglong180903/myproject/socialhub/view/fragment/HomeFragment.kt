@@ -5,6 +5,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,15 +20,17 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import hoanglong180903.myproject.socialhub.R
-import hoanglong180903.myproject.socialhub.adapter.ActiveStatusUserAdapter
-import hoanglong180903.myproject.socialhub.adapter.MessageAdapter
+import hoanglong180903.myproject.socialhub.adapter.PostAdapter
 import hoanglong180903.myproject.socialhub.adapter.StoriesAdapter
 import hoanglong180903.myproject.socialhub.databinding.FragmentHomeBinding
+import hoanglong180903.myproject.socialhub.interfaces.ItemPostOnClick
 import hoanglong180903.myproject.socialhub.model.UserModel
+import hoanglong180903.myproject.socialhub.utils.BundleUtils
+import hoanglong180903.myproject.socialhub.view.activity.ChatActivity
+import hoanglong180903.myproject.socialhub.view.activity.DetailPostActivity
 import hoanglong180903.myproject.socialhub.viewmodel.HomeViewModel
-import hoanglong180903.myproject.socialhub.viewmodel.MessageViewModel
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment() , ItemPostOnClick {
     lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: HomeViewModel
     var user = UserModel()
@@ -59,12 +62,26 @@ class HomeFragment : Fragment() {
     private fun getData() {
         viewModel.getUserStories()
         viewModel.users.observe(viewLifecycleOwner, Observer { users ->
-            binding.rcStories.adapter = StoriesAdapter(users)
+            val sortedStatuses = users.sortedByDescending { it.lastUpdated }
+            binding.rcStories.adapter = StoriesAdapter(sortedStatuses)
             binding.rcStories.layoutManager = LinearLayoutManager(
                 context,
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
+        })
+        viewModel.getPost()
+        viewModel.posts.observe(viewLifecycleOwner, Observer { users ->
+            val sortedStatuses = users.sortedByDescending { it.pTime }
+            binding.rcPost.adapter = PostAdapter(sortedStatuses,this)
+            binding.rcPost.layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
+            for (item in users){
+                viewModel.deleteStoriesInADay(item.pTime)
+            }
         })
     }
 
@@ -81,7 +98,6 @@ class HomeFragment : Fragment() {
                         .error(R.drawable._144760)
                         .into(binding.imgUser)
                 }
-
             }
         })
     }
@@ -118,4 +134,23 @@ class HomeFragment : Fragment() {
         super.onResume()
         fetchInfoUser(FirebaseAuth.getInstance().uid.toString())
     }
+
+    override fun onClickReleaseEmotions(idPost: String, idUser: String) {
+//        viewModel.updatePostEmotions(idPost,idUser)
+    }
+
+    override fun onClickComment(idPost: String) {
+        val bundle = Bundle().apply {
+//            putString("name", model.name)
+//            putString("email", model.email)
+//            putString("userId", model.id)
+//            putString("profileImage", model.image)
+            putString("idPost",idPost)
+        }
+        val intent = Intent(context, DetailPostActivity::class.java)
+        intent.putExtras(bundle)
+        startActivity(intent)
+    }
+
+
 }

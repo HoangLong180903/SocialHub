@@ -46,7 +46,7 @@ class ActiveStatusUserAdapter (private val users: List<UserModel>) : RecyclerVie
         holder.tvName.text = user.name
         checkUserStatus(user.id,holder.imageStatus)
         val animation =
-            AnimationUtils.loadAnimation(holder.itemView.context, android.R.anim.slide_out_right)
+            AnimationUtils.loadAnimation(holder.itemView.context, android.R.anim.slide_in_left)
         holder.itemView.startAnimation(animation)
     }
 

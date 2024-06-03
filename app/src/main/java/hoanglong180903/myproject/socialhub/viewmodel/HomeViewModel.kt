@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import hoanglong180903.myproject.socialhub.model.Posts
 import hoanglong180903.myproject.socialhub.model.UserModel
 import hoanglong180903.myproject.socialhub.model.UserStories
 import hoanglong180903.myproject.socialhub.repository.HomeRepository
@@ -19,6 +20,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
 
+    private val _posts = MutableLiveData<List<Posts>>()
+    val posts: LiveData<List<Posts>> get() = _posts
+
     fun fetchUser(uid: String) {
         repository.getUserData(uid) { user ->
             _user.value = user
@@ -28,11 +32,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun addUserStories(
         data: Intent,
         user: UserModel
-    ){
-        repository.addUserStories(data,user)
+    ) {
+        repository.addUserStories(data, user)
     }
 
-    fun getUserStories(){
+    fun getUserStories() {
         repository.getUserStories(
             onSuccess = { userList ->
                 _users.value = userList
@@ -41,5 +45,23 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 _error.value = databaseError.message
             }
         )
+    }
+
+    fun getPost() {
+        repository.getPosts(
+            onSuccess = { posts ->
+                _posts.value = posts
+            },
+            onFailure = { databaseError ->
+                _error.value = databaseError.message
+            }
+        )
+    }
+
+    //    fun updatePostEmotions(postId: String, newEmotion: ReleaseEmotions) {
+//        repository.updatePostEmotions(postId,newEmotion)
+//    }
+    fun deleteStoriesInADay(timestamp: Long) {
+        repository.deleteStoriesInADay(timestamp)
     }
 }
