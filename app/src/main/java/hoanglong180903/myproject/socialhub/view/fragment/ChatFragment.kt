@@ -20,7 +20,6 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.permissionx.guolindev.PermissionX
@@ -31,16 +30,14 @@ import com.zegocloud.uikit.prebuilt.call.event.CallEndListener
 import com.zegocloud.uikit.prebuilt.call.event.ErrorEventsListener
 import com.zegocloud.uikit.prebuilt.call.event.SignalPluginConnectListener
 import com.zegocloud.uikit.prebuilt.call.invite.ZegoUIKitPrebuiltCallInvitationConfig
-import com.zegocloud.uikit.prebuilt.call.invite.ZegoUIKitPrebuiltCallInvitationService
 import com.zegocloud.uikit.prebuilt.call.invite.internal.ZegoCallInvitationData
 import com.zegocloud.uikit.prebuilt.call.invite.internal.ZegoUIKitPrebuiltCallConfigProvider
-import com.zegocloud.uikit.prebuilt.call.invite.widget.ZegoSendCallInvitationButton
 import com.zegocloud.uikit.service.defines.ZegoUIKitUser
 import com.zegocloud.uikit.service.express.IExpressEngineEventHandler
 import hoanglong180903.myproject.socialhub.R
 import hoanglong180903.myproject.socialhub.adapter.ChatAdapter
 import hoanglong180903.myproject.socialhub.databinding.FragmentChatBinding
-import hoanglong180903.myproject.socialhub.utils.Functions
+import hoanglong180903.myproject.socialhub.utils.Contacts
 import hoanglong180903.myproject.socialhub.viewmodel.ChatViewModel
 import im.zego.zegoexpress.constants.ZegoRoomStateChangedReason
 import org.json.JSONObject
@@ -56,9 +53,11 @@ class ChatFragment : Fragment() {
     private val REQUEST_IMAGE_CAPTURE = 1
     var senderRoom: String = ""
     var receiverRoom: String = ""
+    var token : String = ""
+    var nameFCM : String = ""
     private var imageBitmap: Bitmap? = null
     var database : FirebaseDatabase = FirebaseDatabase.getInstance()
-    lateinit var functions : Functions
+    lateinit var functions : Contacts
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -86,9 +85,11 @@ class ChatFragment : Fragment() {
             val email = bundle.getString("email")
             val userId = bundle.getString("userId")
             val profileImage = bundle.getString("profileImage")
-            val token = bundle.getString("token")
+            var tokenBundle = bundle.getString("token")
             senderRoom = senderUid + userId
             receiverRoom = userId + senderUid
+            token = tokenBundle.toString()
+            nameFCM = name.toString()
             binding.tvTopChat.text = name
             if (profileImage == "No image") {
                 binding.chatProfile.setImageResource(R.drawable._144760)
@@ -109,7 +110,7 @@ class ChatFragment : Fragment() {
             initVideoButton(userId.toString())
 
             offlineUsePermission()
-            requestSendMessage(userId.toString())
+            requestSendMessage(userId.toString(), token,name.toString())
             getData(senderRoom)
         }
     }
@@ -125,17 +126,20 @@ class ChatFragment : Fragment() {
             startActivityForResult(mIntent, 25)
         }
         binding.iconCamera.setOnClickListener {
-            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+            openGallery()
         }
 
         binding.iconAddFile.setOnClickListener {
             binding.lnCameraPhotoImage.visibility = View.VISIBLE
             binding.iconAddFile.visibility = View.GONE
         }
+
+        binding.iconRecord.setOnClickListener {
+
+        }
     }
 
-    private fun requestSendMessage(receiver: String) {
+    private fun requestSendMessage(receiver: String , token : String , name:String) {
         val date = Date()
         val senderRoom = senderUid + receiver
         val receiverRoom = receiver + senderUid
@@ -145,7 +149,10 @@ class ChatFragment : Fragment() {
                 senderUid!!,
                 date.time,
                 senderRoom,
-                receiverRoom
+                receiverRoom,
+                token,
+                requireContext(),
+                name
             )
             binding.edChating.setText("")
         }
@@ -170,14 +177,16 @@ class ChatFragment : Fragment() {
         if (requestCode == 25) {
             if (resultCode == Activity.RESULT_OK) {
                 if (data!!.data != null) {
-                    viewModel.sendPhotoGallery(data, "Photo", senderUid!!, senderRoom, receiverRoom)
+                    viewModel.sendPhotoGallery(data, "Photo", senderUid!!, senderRoom, receiverRoom,token,
+                        requireContext(), nameFCM
+                    )
                 }
             }
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            val selectedImageUri: Uri? = data?.data
-            selectedImageUri?.let {
-//                imageView.setImageURI(it)
-            }
+            viewModel.sendPhotoGallery(
+                data!!, "camera", senderUid!!, senderRoom, receiverRoom,token,
+                requireContext(), nameFCM
+            )
         }
     }
     private fun openGallery() {
@@ -186,16 +195,8 @@ class ChatFragment : Fragment() {
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
     }
 
-    private fun checkSelfPermission() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(), arrayOf<String>(
-                    Manifest.permission.CAMERA
-                ), 100
-            )
-        }
+    private fun openRecord(){
+
     }
 
     private fun initVideoButton(idUserListener : String) {
@@ -287,7 +288,7 @@ class ChatFragment : Fragment() {
         ZegoUIKitPrebuiltCallService.endCall()
     }
 
-    fun offlineUsePermission() {
+    private fun offlineUsePermission() {
         PermissionX.init(this).permissions(Manifest.permission.SYSTEM_ALERT_WINDOW)
             .onExplainRequestReason { scope, deniedList ->
                 val message =

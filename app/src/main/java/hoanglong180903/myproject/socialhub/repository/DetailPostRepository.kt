@@ -51,8 +51,7 @@ class DetailPostRepository(val application: Application) {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (processComment) {
                         comments = snapshot.child(postIde).child("pComments").value.toString()
-                        posRef.child(postIde).child("pComments")
-                            .setValue("" + (comments.toInt() + 1))
+                        posRef.child(postIde).child("pComments").setValue("" + (comments.toInt() + 1))
                         processComment = false
                     }
                 }
@@ -82,5 +81,18 @@ class DetailPostRepository(val application: Application) {
                     onFailure(error)
                 }
             })
+    }
+
+    fun getUserData(uid: String, callback: (UserModel?) -> Unit) {
+        database.getReference("users").child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val user = snapshot.getValue(UserModel::class.java)
+                callback(user)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                callback(null)
+            }
+        })
     }
 }

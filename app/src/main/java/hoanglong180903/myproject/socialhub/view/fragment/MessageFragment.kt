@@ -73,4 +73,26 @@ class MessageFragment : Fragment() , ItemMessageOnClick{
         startActivity(intent)
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.fetchPresence("Online")
+    }
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchPresence("Online")
+    }
+    override fun onPause() {
+        viewModel.fetchPresence("Offline")
+        super.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.fetchPresence("Offline")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.fetchPresence("Offline")
+    }
 }

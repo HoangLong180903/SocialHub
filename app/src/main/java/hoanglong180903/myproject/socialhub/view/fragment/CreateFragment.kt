@@ -99,8 +99,7 @@ class CreateFragment : Fragment() {
 
     private fun requestAddPost(user : UserModel){
         binding.createBtnPost.setOnClickListener {
-            viewModel.createPost(selectedImageUri!!,user,binding.createEdStatus.text.toString()
-            )
+            viewModel.createPost(selectedImageUri!!,user,binding.createEdStatus.text.toString())
         }
     }
 

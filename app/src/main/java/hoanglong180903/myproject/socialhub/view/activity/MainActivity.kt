@@ -1,15 +1,16 @@
 package hoanglong180903.myproject.socialhub.view.activity
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.messaging.FirebaseMessaging
 import hoanglong180903.myproject.socialhub.R
 import hoanglong180903.myproject.socialhub.databinding.ActivityMainBinding
 import hoanglong180903.myproject.socialhub.viewmodel.MessageViewModel
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var navController: NavController
     private lateinit var viewModel: MessageViewModel
+    var database: FirebaseDatabase? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -61,31 +63,35 @@ class MainActivity : AppCompatActivity() {
             bottomNavigationView.selectedItemId = R.id.navNews
         }
         init()
-
+        getToken()
+        getFCMToken()
     }
     private fun init(){
         viewModel = ViewModelProvider(this)[MessageViewModel::class.java]
     }
-    override fun onStart() {
-        super.onStart()
-        viewModel.fetchPresence("Online")
-    }
-    override fun onResume() {
-        super.onResume()
-        viewModel.fetchPresence("Online")
-    }
-    override fun onPause() {
-        viewModel.fetchPresence("Offline")
-        super.onPause()
+
+    private fun getToken(){
+        //init
+        database = FirebaseDatabase.getInstance()
+        FirebaseMessaging.getInstance()
+            .token
+            .addOnSuccessListener { token ->
+                val map = HashMap<String, Any>()
+                map["token"] = token
+                database!!.reference
+                    .child("users")
+                    .child(FirebaseAuth.getInstance().uid!!)
+                    .updateChildren(map)
+            }
     }
 
-    override fun onStop() {
-        super.onStop()
-        viewModel.fetchPresence("Offline")
+    private fun getFCMToken(){
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+            if (it.isSuccessful){
+                val token = it.result
+                Log.i("My token",token)
+            }
+        }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.fetchPresence("Offline")
-    }
 }

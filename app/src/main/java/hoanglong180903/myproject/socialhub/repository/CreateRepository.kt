@@ -38,6 +38,7 @@ class CreateRepository(val application: Application){
                     hashMap["uImage"] = user.image
                     hashMap["uName"] = user.name
                     hashMap["pLikes"] = "0"
+                    hashMap["pComments"] = "0"
                     database.getReference("Posts")
                         .child(date.time.toString())
                         .setValue(hashMap)

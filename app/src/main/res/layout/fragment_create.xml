@@ -39,7 +39,7 @@
             android:id="@+id/create_edStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Status..."
+            android:hint="What's on your mind?"
             android:background="@drawable/bg_edittext"
             android:padding="10dp"/>
         <RelativeLayout

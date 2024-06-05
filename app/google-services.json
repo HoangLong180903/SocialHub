@@ -1,13 +1,52 @@
 {
   "project_info": {
-    "project_number": "357737938443",
-    "project_id": "socialhubproject-f816b",
-    "storage_bucket": "socialhubproject-f816b.appspot.com"
+    "project_number": "876732120875",
+    "firebase_url": "https://organic-poetry-373016-default-rtdb.firebaseio.com",
+    "project_id": "organic-poetry-373016",
+    "storage_bucket": "organic-poetry-373016.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:357737938443:android:7a25727f0002d18cd1910e",
+        "mobilesdk_app_id": "1:876732120875:android:6e55e31b95a4e36653cf6e",
+        "android_client_info": {
+          "package_name": "com.example.chat_callvideoapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQvFy4hVLtx8x5fbckRwyDz2hdanIPD18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876732120875:android:82e39a46c826826e53cf6e",
+        "android_client_info": {
+          "package_name": "hoanglong180903.myproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQvFy4hVLtx8x5fbckRwyDz2hdanIPD18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876732120875:android:c8cc671cc74a8ab853cf6e",
         "android_client_info": {
           "package_name": "hoanglong180903.myproject.socialhub"
         }
@@ -15,7 +54,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCDQH9HPbiX2KHcbQGm6CREQvZZCMeY-wQ"
+          "current_key": "AIzaSyBQvFy4hVLtx8x5fbckRwyDz2hdanIPD18"
         }
       ],
       "services": {

@@ -14,6 +14,10 @@ class DetailPostViewModel(application: Application)  : AndroidViewModel(applicat
     private val _users = MutableLiveData<List<Comment>>()
     val users: LiveData<List<Comment>> get() = _users
     private val _error = MutableLiveData<String>()
+
+
+    private val _user = MutableLiveData<UserModel?>()
+    val user: LiveData<UserModel?> get() = _user
     fun sendComment(postIde : String , comment: String , uId : String , uName : String , uImage : String) {
         repository.sendComment(postIde, comment, uId, uName , uImage)
     }
@@ -31,5 +35,11 @@ class DetailPostViewModel(application: Application)  : AndroidViewModel(applicat
                 _error.value = databaseError.message
             },postIde
         )
+    }
+
+    fun fetchUser(uid: String) {
+        repository.getUserData(uid) { user ->
+            _user.value = user
+        }
     }
 }

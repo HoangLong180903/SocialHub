@@ -1,5 +1,6 @@
 package hoanglong180903.myproject.socialhub.view.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.format.DateUtils
@@ -8,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -79,7 +81,9 @@ class DetailPostActivity : AppCompatActivity() {
                             .error(R.drawable._144760)
                             .into(binding.itemPostImgPost)
                         binding.detailPostTvName.text = ""+ uName
-                        requestComment(pId.toString(),uId.toString(),uName.toString(), uImage.toString())
+                        fetchInfoUser(FirebaseAuth.getInstance().uid!!, pId.toString(),
+                            uId.toString()
+                        )
                         getData(postId.toString())
                     }
                 }
@@ -136,5 +140,14 @@ class DetailPostActivity : AppCompatActivity() {
         } else {
             "In the future"
         }
+    }
+
+    private fun fetchInfoUser(uid: String , pId : String , uId : String) {
+        viewModel.fetchUser(uid)
+        viewModel.user.observe(this, Observer { user ->
+            if (user != null) {
+                requestComment(pId,uId,user.name, user.image)
+            }
+        })
     }
 }
