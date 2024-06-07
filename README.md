@@ -37,9 +37,10 @@ Video Call - Phone Call
 -------------------------------------------------------
 Profile User
 -------------------------------------------------------
-![Screenshot (613)](https://github.com/HoangLong180903/SocialHub/assets/118257963/79b860a6-e398-4f55-90bb-24156c0ddc6c)
-![Screenshot (614)](https://github.com/HoangLong180903/SocialHub/assets/118257963/f3c58d9f-59f9-467e-b11f-ca9c33936fe2)
-![Screenshot (606)](https://github.com/HoangLong180903/SocialHub/assets/118257963/49afb783-a90d-4bb5-ba4d-8d164e4ea5e4)
+![Screenshot (606)](https://github.com/HoangLong180903/SocialHub/assets/118257963/ac53e346-9fed-4eb9-be43-cab15f3fbe93)
+![Screenshot (613)](https://github.com/HoangLong180903/SocialHub/assets/118257963/e666431c-97ff-48d8-8e5d-e50c327f621e)
+![Screenshot (614)](https://github.com/HoangLong180903/SocialHub/assets/118257963/f7460c67-274b-43bc-9fd9-9790f6aff946)
+
 
 
 
