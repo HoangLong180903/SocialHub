@@ -15,11 +15,24 @@ Home - Detail Posts - Stories View
 -------------------------------------------------------
 Create Posts
 -------------------------------------------------------
+![Screenshot (604)](https://github.com/HoangLong180903/SocialHub/assets/118257963/db2d5b90-b844-417f-8043-1cb7d4ff6b11)
+-------------------------------------------------------
 Message - Chat
+-------------------------------------------------------
+![Screenshot (610)](https://github.com/HoangLong180903/SocialHub/assets/118257963/dde94766-e695-4887-b78d-2b8c25c37738)
+![Screenshot (612)](https://github.com/HoangLong180903/SocialHub/assets/118257963/c9f30b51-074a-4fa4-9fd1-9ac287b1e4a1)
 -------------------------------------------------------
 Video Call - Phone Call 
 -------------------------------------------------------
+![Screenshot (596)](https://github.com/HoangLong180903/SocialHub/assets/118257963/69049535-4a50-4697-a2d0-edef5a575f3d)
+![Screenshot (597)](https://github.com/HoangLong180903/SocialHub/assets/118257963/75efa330-98e8-4dc8-a007-a2ba4551c1c2)
+![Screenshot (593)](https://github.com/HoangLong180903/SocialHub/assets/118257963/20d20620-687a-4a0c-916e-d150714ee718)
+-------------------------------------------------------
 Profile User
+-------------------------------------------------------
+![Screenshot (613)](https://github.com/HoangLong180903/SocialHub/assets/118257963/79b860a6-e398-4f55-90bb-24156c0ddc6c)
+![Screenshot (614)](https://github.com/HoangLong180903/SocialHub/assets/118257963/f3c58d9f-59f9-467e-b11f-ca9c33936fe2)
+![Screenshot (606)](https://github.com/HoangLong180903/SocialHub/assets/118257963/49afb783-a90d-4bb5-ba4d-8d164e4ea5e4)
 
 
 
