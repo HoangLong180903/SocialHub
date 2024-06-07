@@ -18,7 +18,9 @@ Video Call - Phone Call
 ![Screenshot (597)](https://github.com/HoangLong180903/SocialHub/assets/118257963/e8f60e87-6e2b-4b0e-ae99-21a76329880e)
 -------------------------------------------------------
 Profile User
-![Screenshot (614)](https://github.com/HoangLong180903/SocialHub/assets/118257963/28f334ca-74db-4914-8e81-73cd8fdb007b)
+![Screenshot (614)](https://github.com/HoangLong180903/SocialHub/assets/118257963/28f334ca-74db-4914-8e81-73cd8fdb007b) ![Screenshot (613)](https://github.com/HoangLong180903/SocialHub/assets/118257963/736945fc-dc0d-488b-829e-0eee31d3ea2f) ![Uploading Screenshot (614).png…]()
+
+
 
 
 
