@@ -20,8 +20,9 @@ Create Posts
 -------------------------------------------------------
 Message - Chat
 -------------------------------------------------------
-![Screenshot (610)](https://github.com/HoangLong180903/SocialHub/assets/118257963/8dd24fd0-ff7f-4ae8-9dd1-48646251f3bc)
-![Screenshot (612)](https://github.com/HoangLong180903/SocialHub/assets/118257963/48dd5aa9-b72d-4bac-b665-cb85f3fedaa8)
+![Screenshot (615)](https://github.com/HoangLong180903/SocialHub/assets/118257963/49aa4586-fc0e-497b-8d5a-f455ec299ab5)
+![Screenshot (616)](https://github.com/HoangLong180903/SocialHub/assets/118257963/b3429169-02e2-46a4-987a-34434da49831)
+
 -------------------------------------------------------
 Video Call - Phone Call 
 -------------------------------------------------------
