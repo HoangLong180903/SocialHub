@@ -12,15 +12,16 @@ Splash Screen - Registration
 ![Screenshot (601)](https://github.com/HoangLong180903/SocialHub/assets/118257963/2b8a481f-6953-405e-98e2-1eea9363cccd)
 
 -------------------------------------------------------
-Home - Detail Posts - Stories View
+Home - Stories View
 -------------------------------------------------------
 ![Screenshot (603)](https://github.com/HoangLong180903/SocialHub/assets/118257963/9013fffb-d797-4c89-9b1b-403758aa7d90)
-![Screenshot (607)](https://github.com/HoangLong180903/SocialHub/assets/118257963/348620da-85fb-4495-929b-1b265de26ea2)
 ![Screenshot (609)](https://github.com/HoangLong180903/SocialHub/assets/118257963/3adafd66-1c27-4436-a73b-e8405f99e1ee)
 -------------------------------------------------------
-Create Posts
+Create Posts - Detail Posts
 -------------------------------------------------------
 ![Screenshot (604)](https://github.com/HoangLong180903/SocialHub/assets/118257963/db2d5b90-b844-417f-8043-1cb7d4ff6b11)
+![Screenshot (607)](https://github.com/HoangLong180903/SocialHub/assets/118257963/348620da-85fb-4495-929b-1b265de26ea2)
+
 -------------------------------------------------------
 Message - Chat
 -------------------------------------------------------
