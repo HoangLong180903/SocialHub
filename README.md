@@ -6,9 +6,11 @@ link design figma: https://www.figma.com/design/Fv71mYoJdp5GB9FVCAVktC/Untitled?
 
 Splash Screen - Registration 
 -------------------------------------------------------
-![Screenshot (599)](https://github.com/HoangLong180903/SocialHub/assets/118257963/5d59ea6b-55ac-4382-8a21-c992e316cfd8)
-![Screenshot (600)](https://github.com/HoangLong180903/SocialHub/assets/118257963/852c4131-e092-4bff-8f1f-7f0786f8a48b)
-![Screenshot (601)](https://github.com/HoangLong180903/SocialHub/assets/118257963/55c20e08-b4b7-42a6-bf69-2a81a696ddda)
+
+![Screenshot (599)](https://github.com/HoangLong180903/SocialHub/assets/118257963/273181bd-798f-4426-a2c8-f44344e5eac3)
+![Screenshot (600)](https://github.com/HoangLong180903/SocialHub/assets/118257963/4976120b-0830-4a3d-bc5d-79349763c0d8)
+![Screenshot (601)](https://github.com/HoangLong180903/SocialHub/assets/118257963/2b8a481f-6953-405e-98e2-1eea9363cccd)
+
 -------------------------------------------------------
 Home - Detail Posts - Stories View
 -------------------------------------------------------
