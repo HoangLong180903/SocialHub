@@ -3,25 +3,21 @@ Build app version '8.0.2' , sdk 34
 link design figma https://www.figma.com/design/Fv71mYoJdp5GB9FVCAVktC/Untitled?node-id=0-1&t=HREs9OJ2buzTJUqB-0
 
 Splash Screen - Registration
-
-![Screenshot (599)](https://github.com/HoangLong180903/SocialHub/assets/118257963/7b510d3d-4638-4710-bf5e-e8c93d261858)
-
-
+![Screenshot (599)](https://github.com/HoangLong180903/SocialHub/assets/118257963/432c2c5b-650e-4b9f-b752-65bab5b99c3a)
+![Screenshot (600)](https://github.com/HoangLong180903/SocialHub/assets/118257963/040ee3c2-2c00-45b3-8848-96a5b849c2c4)
+![Screenshot (601)](https://github.com/HoangLong180903/SocialHub/assets/118257963/6e8528f4-ac27-4eda-b857-c95fa95a065a)
 -------------------------------------------------------
 Home - Detail Posts - Stories View
-![Screenshot (609)](https://github.com/HoangLong180903/SocialHub/assets/118257963/1c03c170-ae1d-4b98-a4af-74247d93c247)
+
 -------------------------------------------------------
 Create Posts
-![Screenshot (604)](https://github.com/HoangLong180903/SocialHub/assets/118257963/792fb403-cf7d-485b-89a2-fb4c76baeab7)
 -------------------------------------------------------
 Message - Chat
-![Screenshot (612)](https://github.com/HoangLong180903/SocialHub/assets/118257963/9bb67634-39ab-4ee0-9ea5-74f6ce607217)
 -------------------------------------------------------
 Video Call - Phone Call 
-![Screenshot (597)](https://github.com/HoangLong180903/SocialHub/assets/118257963/e8f60e87-6e2b-4b0e-ae99-21a76329880e)
 -------------------------------------------------------
 Profile User
-![Screenshot (614)](https://github.com/HoangLong180903/SocialHub/assets/118257963/28f334ca-74db-4914-8e81-73cd8fdb007b) ![Screenshot (613)](https://github.com/HoangLong180903/SocialHub/assets/118257963/736945fc-dc0d-488b-829e-0eee31d3ea2f) ![Uploading Screenshot (614).png…]()
+
 
 
 
