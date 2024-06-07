@@ -3,7 +3,10 @@ Build app version '8.0.2' , sdk 34
 link design figma https://www.figma.com/design/Fv71mYoJdp5GB9FVCAVktC/Untitled?node-id=0-1&t=HREs9OJ2buzTJUqB-0
 
 Splash Screen - Registration
-![Screenshot (600)](https://github.com/HoangLong180903/SocialHub/assets/118257963/f4fbf872-8af2-4190-9049-7d8e64041b92)
+![Uploading Screenshot (601).png…]
+![Screenshot (599)](https://github.com/HoangLong180903/SocialHub/assets/118257963/e5c1f1c9-4302-4b0c-966a-53da8b795b00)
+![Screenshot (600)](https://github.com/HoangLong180903/SocialHub/assets/118257963/35c49807-7e82-41d3-bc0d-bbec56fb7b12)
+()
 -------------------------------------------------------
 Home - Detail Posts - Stories View
 ![Screenshot (609)](https://github.com/HoangLong180903/SocialHub/assets/118257963/1c03c170-ae1d-4b98-a4af-74247d93c247)
