@@ -1,4 +1,5 @@
 Git clone : https://github.com/HoangLong180903/SocialHub.git
+
 Build app version '8.0.2' , sdk 34
 link design figma https://www.figma.com/design/Fv71mYoJdp5GB9FVCAVktC/Untitled?node-id=0-1&t=HREs9OJ2buzTJUqB-0
 
@@ -19,8 +20,8 @@ Create Posts
 -------------------------------------------------------
 Message - Chat
 -------------------------------------------------------
-![Screenshot (610)](https://github.com/HoangLong180903/SocialHub/assets/118257963/dde94766-e695-4887-b78d-2b8c25c37738)
-![Screenshot (612)](https://github.com/HoangLong180903/SocialHub/assets/118257963/c9f30b51-074a-4fa4-9fd1-9ac287b1e4a1)
+![Screenshot (610)](https://github.com/HoangLong180903/SocialHub/assets/118257963/8dd24fd0-ff7f-4ae8-9dd1-48646251f3bc)
+![Screenshot (612)](https://github.com/HoangLong180903/SocialHub/assets/118257963/48dd5aa9-b72d-4bac-b665-cb85f3fedaa8)
 -------------------------------------------------------
 Video Call - Phone Call 
 -------------------------------------------------------
