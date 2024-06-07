@@ -9,7 +9,9 @@ Splash Screen - Registration
 -------------------------------------------------------
 Home - Detail Posts - Stories View
 -------------------------------------------------------
-![Screenshot (603)](https://github.com/HoangLong180903/SocialHub/assets/118257963/c325127b-ff42-4885-8196-a6f79f8a197e) ![Screenshot (604)](https://github.com/HoangLong180903/SocialHub/assets/118257963/0afd4cf0-6f50-4462-94ed-9bff023af1c8) ![Screenshot (609)](https://github.com/HoangLong180903/SocialHub/assets/118257963/a940f505-bd1e-4eb7-a2ad-9ec95d81f984)
+![Screenshot (603)](https://github.com/HoangLong180903/SocialHub/assets/118257963/9013fffb-d797-4c89-9b1b-403758aa7d90)
+![Screenshot (607)](https://github.com/HoangLong180903/SocialHub/assets/118257963/348620da-85fb-4495-929b-1b265de26ea2)
+![Screenshot (609)](https://github.com/HoangLong180903/SocialHub/assets/118257963/3adafd66-1c27-4436-a73b-e8405f99e1ee)
 -------------------------------------------------------
 Create Posts
 -------------------------------------------------------
