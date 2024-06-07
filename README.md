@@ -4,7 +4,7 @@ link design figma https://www.figma.com/design/Fv71mYoJdp5GB9FVCAVktC/Untitled?n
 
 Splash Screen - Registration
 
-＜img src="![Screenshot (599)](https://github.com/HoangLong180903/SocialHub/assets/118257963/432c2c5b-650e-4b9f-b752-65bab5b99c3a)" width="500" height="300"＞
+＜img src="https://github.com/HoangLong180903/SocialHub/assets/118257963/432c2c5b-650e-4b9f-b752-65bab5b99c3a" width="500" height="300"＞
 -------------------------------------------------------
 Home - Detail Posts - Stories View
 
