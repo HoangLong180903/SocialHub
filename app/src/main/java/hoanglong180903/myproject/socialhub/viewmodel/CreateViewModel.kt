@@ -18,6 +18,11 @@ class CreateViewModel(application: Application) : AndroidViewModel(application) 
     private val _user = MutableLiveData<UserModel?>()
     val user: LiveData<UserModel?> get() = _user
 
+    val isSuccessful : LiveData<Boolean>
+    init {
+        isSuccessful = repository.isSuccessful
+    }
+
     fun createPost(selectImage : Uri,
                    user: UserModel,
                    title : String){

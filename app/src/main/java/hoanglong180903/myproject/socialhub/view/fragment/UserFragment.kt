@@ -13,8 +13,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.core.view.Change
 import hoanglong180903.myproject.socialhub.R
 import hoanglong180903.myproject.socialhub.databinding.FragmentUserBinding
+import hoanglong180903.myproject.socialhub.view.activity.ChangePasswordActivity
 import hoanglong180903.myproject.socialhub.view.activity.ProfileActivity
 import hoanglong180903.myproject.socialhub.view.activity.RegistrationActivity
 import hoanglong180903.myproject.socialhub.viewmodel.UserViewModel
@@ -79,11 +81,27 @@ class UserFragment : Fragment() {
 //                        BundleUtils.bundleData(user)
                         putString("name", user.name)
                         putString("email", user.email)
+                        putString("password",user.password)
                         putString("userId", user.id)
                         putString("profileImage", user.image)
                         putString("token", user.token)
                     }
                     val intent = Intent(context, ProfileActivity::class.java)
+                    intent.putExtras(bundle)
+                    startActivity(intent)
+                }
+
+                binding.userBtnChangePassword.setOnClickListener {
+                    val bundle = Bundle().apply {
+//                        BundleUtils.bundleData(user)
+                        putString("name", user.name)
+                        putString("email", user.email)
+                        putString("password",user.password)
+                        putString("userId", user.id)
+                        putString("profileImage", user.image)
+                        putString("token", user.token)
+                    }
+                    val intent = Intent(context, ChangePasswordActivity::class.java)
                     intent.putExtras(bundle)
                     startActivity(intent)
                 }

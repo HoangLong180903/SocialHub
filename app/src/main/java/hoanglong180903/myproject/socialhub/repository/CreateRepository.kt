@@ -3,6 +3,7 @@ package hoanglong180903.myproject.socialhub.repository
 import android.app.Application
 import android.net.Uri
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -16,7 +17,7 @@ import java.util.Objects
 class CreateRepository(val application: Application){
     private val database = FirebaseDatabase.getInstance()
     private val storage: FirebaseStorage = FirebaseStorage.getInstance()
-
+    val isSuccessful = MutableLiveData<Boolean>()
 
     fun createPosts(
         selectImage : Uri,
@@ -50,6 +51,9 @@ class CreateRepository(val application: Application){
                             }
                         }
                 }
+                isSuccessful.value = task.isSuccessful
+            }else{
+                isSuccessful.value = false
             }
         }
     }

@@ -83,12 +83,13 @@
             android:id="@+id/create_btnPost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="POST"
+            android:text="Create"
             android:textStyle="bold"
             android:textSize="16dp"
             android:layout_gravity="center"
             android:layout_margin="25dp"
-            android:background="@drawable/border_shadow"
+            android:background="@drawable/bg_button"
+            android:textColor="#FFF"
             />
     </LinearLayout>
 </FrameLayout>

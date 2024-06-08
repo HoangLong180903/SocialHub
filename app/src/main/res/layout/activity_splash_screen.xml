@@ -22,16 +22,31 @@
             android:layout_weight="1"
             />
     </LinearLayout>
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_above="@id/image_center"
-        android:text="Social Network App"
-        android:textColor="#FFF"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wellcome to"
+            android:textColor="#FFF"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Social Hub"
+            android:textColor="#FFF"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:textAlignment="center" />
+    </LinearLayout>
     <ImageView
         android:id="@+id/image_center"
         android:layout_width="match_parent"
@@ -39,6 +54,7 @@
         android:src="@drawable/bg_screen"
         android:layout_centerInParent="true"/>
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/splash_btnGetStart"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Get Start"

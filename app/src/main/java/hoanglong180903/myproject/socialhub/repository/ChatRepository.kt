@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.android.volley.AuthFailureError
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -25,6 +26,7 @@ import java.util.Date
 class ChatRepository(val application: Application) {
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val storage: FirebaseStorage = FirebaseStorage.getInstance()
+    val isSuccessful = MutableLiveData<Boolean>()
     fun sendMessage(
         messageTxt: String,
         senderUid: String,
@@ -139,11 +141,15 @@ class ChatRepository(val application: Application) {
                                 .setValue(message)
                                 .addOnSuccessListener {
                                     Log.d("send photo", "send photo successful")
-                                    sendNotification(name, messageTxt, token, context)
+                                    sendNotification(name, "Photo", token, context)
                                 }
                                 .addOnFailureListener {
                                     Log.d("send photo", it.localizedMessage)
                                 }
+                            isSuccessful.value = task.isSuccessful
+                        }
+                        .addOnFailureListener {
+                            isSuccessful.value = false
                         }
                 }
             }
@@ -198,11 +204,12 @@ class ChatRepository(val application: Application) {
                                 .setValue(message)
                                 .addOnSuccessListener {
                                     Log.d("send photo", "send photo successful")
-                                    sendNotification(name, messageTxt, token, context)
+                                    sendNotification(name, "Photo", token, context)
                                 }
                                 .addOnFailureListener {
                                     Log.d("send photo", it.localizedMessage)
                                 }
+                            isSuccessful.value = task.isSuccessful
                         }
                 }
             }

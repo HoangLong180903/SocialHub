@@ -13,15 +13,28 @@
           "package_name": "com.example.chat_callvideoapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "876732120875-v2ia8s94kuvjvdahf90ofjakq12rj36t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBQvFy4hVLtx8x5fbckRwyDz2hdanIPD18"
+        },
+        {
+          "current_key": "AIzaSyDaKxJASu1hR3UAdFxXWcys6mHd7HlnYlc"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "876732120875-v2ia8s94kuvjvdahf90ofjakq12rj36t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     },
@@ -32,15 +45,28 @@
           "package_name": "hoanglong180903.myproject"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "876732120875-v2ia8s94kuvjvdahf90ofjakq12rj36t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBQvFy4hVLtx8x5fbckRwyDz2hdanIPD18"
+        },
+        {
+          "current_key": "AIzaSyDaKxJASu1hR3UAdFxXWcys6mHd7HlnYlc"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "876732120875-v2ia8s94kuvjvdahf90ofjakq12rj36t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     },
@@ -51,15 +77,28 @@
           "package_name": "hoanglong180903.myproject.socialhub"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "876732120875-v2ia8s94kuvjvdahf90ofjakq12rj36t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBQvFy4hVLtx8x5fbckRwyDz2hdanIPD18"
+        },
+        {
+          "current_key": "AIzaSyDaKxJASu1hR3UAdFxXWcys6mHd7HlnYlc"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "876732120875-v2ia8s94kuvjvdahf90ofjakq12rj36t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

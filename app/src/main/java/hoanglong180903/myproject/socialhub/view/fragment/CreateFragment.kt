@@ -1,6 +1,7 @@
 package hoanglong180903.myproject.socialhub.view.fragment
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Typeface
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +24,8 @@ import hoanglong180903.myproject.socialhub.R
 import hoanglong180903.myproject.socialhub.adapter.ChatAdapter
 import hoanglong180903.myproject.socialhub.databinding.FragmentCreateBinding
 import hoanglong180903.myproject.socialhub.model.UserModel
+import hoanglong180903.myproject.socialhub.utils.Functions
+import hoanglong180903.myproject.socialhub.view.activity.MainActivity
 import hoanglong180903.myproject.socialhub.view.activity.ProfileActivity
 import hoanglong180903.myproject.socialhub.viewmodel.CreateViewModel
 
@@ -33,6 +37,7 @@ class CreateFragment : Fragment() {
     lateinit var viewModel : CreateViewModel
     private var urlImageUser :  String = ""
     private var nameUser : String = ""
+    lateinit var loadingDialog: Dialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -58,6 +63,7 @@ class CreateFragment : Fragment() {
 
     private fun initView(){
         viewModel = ViewModelProvider(this)[CreateViewModel::class.java]
+        loadingDialog = Functions.showLoadingDialog(requireContext())
     }
 
     private fun fetchInfoUser(uid: String) {
@@ -75,7 +81,6 @@ class CreateFragment : Fragment() {
                         .into(binding.createImgUser)
                 }
             }
-
             urlImageUser = user!!.image
             nameUser = user.name
             requestAddPost(user)
@@ -100,7 +105,22 @@ class CreateFragment : Fragment() {
     private fun requestAddPost(user : UserModel){
         binding.createBtnPost.setOnClickListener {
             viewModel.createPost(selectedImageUri!!,user,binding.createEdStatus.text.toString())
+            loadingDialog.show()
         }
+        viewModel.isSuccessful.observe(viewLifecycleOwner, Observer {
+            var message = ""
+            if (it) {
+                message = "Create posts successfully"
+                binding.createEdStatus.setText("")
+                selectedImageUri = null
+                binding.createImageUrl.visibility = View.GONE
+                binding.createLnImage.visibility = View.VISIBLE
+            } else {
+                message = "Create posts failed"
+            }
+            loadingDialog.dismiss()
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

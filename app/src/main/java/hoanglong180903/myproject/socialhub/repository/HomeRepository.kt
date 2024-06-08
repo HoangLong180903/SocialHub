@@ -6,6 +6,7 @@ import android.content.Intent
 import android.text.format.DateUtils
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -25,6 +26,7 @@ class HomeRepository(application: Application) {
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val database = FirebaseDatabase.getInstance()
     private val ref: DatabaseReference = FirebaseDatabase.getInstance().reference
+    val isSuccessful = MutableLiveData<Boolean>()
     fun getUserData(uid: String, callback: (UserModel?) -> Unit) {
         database.getReference("users").child(uid).addListenerForSingleValueEvent(object :
             ValueEventListener {
@@ -70,7 +72,10 @@ class HomeRepository(application: Application) {
                         .child("Statuses")
                         .child(date.time.toString())
                         .setValue(status)
+                    isSuccessful.value = task.isSuccessful
                 }
+            }else{
+                isSuccessful.value = false
             }
         }
     }

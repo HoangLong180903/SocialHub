@@ -25,11 +25,5 @@ class RegistrationActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             navController.navigate(R.id.signInFragment)
         }
-        if (FirebaseAuth.getInstance().currentUser != null) {
-            Intent(this, MainActivity::class.java).also {
-                startActivity(it)
-                finish()
-            }
-        }
     }
 }

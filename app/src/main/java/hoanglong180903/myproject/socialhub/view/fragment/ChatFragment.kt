@@ -2,6 +2,7 @@ package hoanglong180903.myproject.socialhub.view.fragment
 
 import android.Manifest
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -11,6 +12,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -38,6 +40,7 @@ import hoanglong180903.myproject.socialhub.R
 import hoanglong180903.myproject.socialhub.adapter.ChatAdapter
 import hoanglong180903.myproject.socialhub.databinding.FragmentChatBinding
 import hoanglong180903.myproject.socialhub.utils.Contacts
+import hoanglong180903.myproject.socialhub.utils.Functions
 import hoanglong180903.myproject.socialhub.viewmodel.ChatViewModel
 import im.zego.zegoexpress.constants.ZegoRoomStateChangedReason
 import org.json.JSONObject
@@ -58,13 +61,13 @@ class ChatFragment : Fragment() {
     private var imageBitmap: Bitmap? = null
     var database : FirebaseDatabase = FirebaseDatabase.getInstance()
     lateinit var functions : Contacts
+    lateinit var loadingDialog: Dialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentChatBinding.inflate(layoutInflater, container, false)
-        viewModel = ViewModelProvider(this)[ChatViewModel::class.java]
         return binding.root
     }
 
@@ -73,10 +76,13 @@ class ChatFragment : Fragment() {
         initView(view)
         getDataBundle()
         actionButton()
+        requestSend()
     }
 
     private fun initView(view: View) {
+        viewModel = ViewModelProvider(this)[ChatViewModel::class.java]
         navController = Navigation.findNavController(view)
+        loadingDialog = Functions.showLoadingDialog(requireContext())
     }
 
     private fun getDataBundle() {
@@ -177,17 +183,24 @@ class ChatFragment : Fragment() {
         if (requestCode == 25) {
             if (resultCode == Activity.RESULT_OK) {
                 if (data!!.data != null) {
+                    loadingDialog.show()
                     viewModel.sendPhotoGallery(data, "Photo", senderUid!!, senderRoom, receiverRoom,token,
                         requireContext(), nameFCM
                     )
                 }
             }
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            viewModel.sendPhotoGallery(
+            loadingDialog.show()
+            viewModel.sendCameraPhoto(
                 data!!, "camera", senderUid!!, senderRoom, receiverRoom,token,
                 requireContext(), nameFCM
             )
         }
+    }
+    private fun requestSend(){
+        viewModel.isSuccessful.observe(viewLifecycleOwner, Observer {
+            loadingDialog.dismiss()
+        })
     }
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)

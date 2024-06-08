@@ -43,7 +43,7 @@ android {
 dependencies {
 
     implementation 'androidx.work:work-runtime-ktx:2.7.0'
-    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -55,6 +55,8 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-analytics")
+    // Also add the dependency for the Google Play services library and specify its version
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
 
     //mvvm
     def lifecycle_version = "2.7.0"
@@ -72,6 +74,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database'
     implementation("com.google.firebase:firebase-firestore")
     implementation 'com.google.firebase:firebase-storage'
+    implementation("com.google.firebase:firebase-appcheck")
     //circle image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 

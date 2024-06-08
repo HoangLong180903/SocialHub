@@ -3,7 +3,28 @@
     <style name="Base.Theme.SocialHub" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimaryVariant">#00CDBD</item>
+        <item name="colorPrimary">#5FB1C1</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!--        <item name="colorSecondary">@color/material_dynamic_primary20</item>-->
+        <item name="colorSecondaryVariant">@color/material_dynamic_primary70</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/xanh_duong</item>
     </style>
 
     <style name="Theme.SocialHub" parent="Base.Theme.SocialHub" />
+
+    <style name="Widget.Slopes.TextInputLayout.Form" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/text_input_form_outline</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="hintAnimationEnabled">false</item>
+        <item name="colorSurface">@android:color/black</item> <!-- Test -->
+    </style>
+
+    <style name="DialogCustomTheme" parent="android:Theme.Holo.Dialog.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
 </resources>

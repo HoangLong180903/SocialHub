@@ -1,8 +1,10 @@
 package hoanglong180903.myproject.socialhub.view.fragment
 
+import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,17 +15,21 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.auth.FirebaseAuth
 import hoanglong180903.myproject.socialhub.R
 import hoanglong180903.myproject.socialhub.databinding.FragmentProfileBinding
+import hoanglong180903.myproject.socialhub.utils.Functions
 import hoanglong180903.myproject.socialhub.viewmodel.ProfileViewModel
 
 
 class ProfileFragment : Fragment() {
-    lateinit var binding : FragmentProfileBinding
+    lateinit var binding: FragmentProfileBinding
     var selectedImage: Uri? = null
     private var navController: NavController? = null
-    lateinit var viewModel : ProfileViewModel
-
+    lateinit var viewModel: ProfileViewModel
+    lateinit var loadingDialog: Dialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -45,24 +51,28 @@ class ProfileFragment : Fragment() {
         getDataBundle()
     }
 
-    private fun initView(view : View){
+    private fun initView(view: View) {
         navController = Navigation.findNavController(view)
         viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+        loadingDialog = Functions.showLoadingDialog(requireContext())
     }
-    private fun getDataBundle(){
+
+    private fun getDataBundle() {
 
         arguments?.let { bundle ->
             val name = bundle.getString("name")
             val email = bundle.getString("email")
+            val password = bundle.getString("password")
             val userId = bundle.getString("userId")
             val profileImage = bundle.getString("profileImage")
             val token = bundle.getString("token")
 
             binding.profileEdName.setText(name)
             binding.profileEdEmail.setText(email)
+            binding.profileEdPassword.setText(password)
             if (profileImage == "No image") {
                 binding.profileImgUser.setImageResource(R.drawable._144760)
-            }else{
+            } else {
                 Glide.with(this)
                     .load(profileImage)
                     .placeholder(R.drawable._144760)
@@ -78,21 +88,25 @@ class ProfileFragment : Fragment() {
             startActivityForResult(intent, 45)
         }
     }
-    private fun requestUpdateUser(uid :String){
+
+    private fun requestUpdateUser(uid: String) {
         binding.profileBtnSave.setOnClickListener {
-            viewModel.updateUser(uid,binding.profileEdName.text.toString(),selectedImage)
+            loadingDialog.show()
+            viewModel.updateUser(uid, binding.profileEdName.text.toString(), selectedImage)
         }
         viewModel.isSuccessful.observe(viewLifecycleOwner, Observer {
             var message = ""
             if (it) {
-                message = "update thanh cong"
+                message = "Update profile successful"
                 activity?.finish()
             } else {
-                message = "Update that bai"
+                message = "Update profile failed"
             }
+            loadingDialog.dismiss()
             Toast.makeText(context, message, Toast.LENGTH_LONG).show()
         })
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (data != null) {
@@ -102,7 +116,5 @@ class ProfileFragment : Fragment() {
             }
         }
     }
-
-
 
 }

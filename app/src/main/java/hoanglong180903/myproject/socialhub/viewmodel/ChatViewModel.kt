@@ -16,6 +16,10 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
     val users: LiveData<List<MessageModel>> get() = _users
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
+    val isSuccessful : LiveData<Boolean>
+    init {
+        isSuccessful = repository.isSuccessful
+    }
     fun sendMessage(
         messageTxt: String,
         senderUid: String,

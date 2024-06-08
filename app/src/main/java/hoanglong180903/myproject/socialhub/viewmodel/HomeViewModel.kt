@@ -22,7 +22,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _posts = MutableLiveData<List<Posts>>()
     val posts: LiveData<List<Posts>> get() = _posts
-
+    val isSuccessful : LiveData<Boolean>
+    init {
+        isSuccessful = repository.isSuccessful
+    }
     fun fetchUser(uid: String) {
         repository.getUserData(uid) { user ->
             _user.value = user
@@ -58,9 +61,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
-    //    fun updatePostEmotions(postId: String, newEmotion: ReleaseEmotions) {
-//        repository.updatePostEmotions(postId,newEmotion)
-//    }
     fun deleteStoriesInADay(timestamp: Long) {
         repository.deleteStoriesInADay(timestamp)
     }

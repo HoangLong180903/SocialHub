@@ -1,5 +1,6 @@
 package hoanglong180903.myproject.socialhub.view.fragment
 
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import hoanglong180903.myproject.socialhub.R
 import hoanglong180903.myproject.socialhub.databinding.FragmentSignUpBinding
+import hoanglong180903.myproject.socialhub.utils.Functions
 import hoanglong180903.myproject.socialhub.viewmodel.SignUpViewModel
 
 
@@ -19,6 +21,7 @@ class SignUpFragment : Fragment() {
     private lateinit var binding: FragmentSignUpBinding
     private lateinit var viewModel: SignUpViewModel
     private var navController: NavController? = null
+    private lateinit var loadingDialog: Dialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -41,23 +44,36 @@ class SignUpFragment : Fragment() {
     }
     private fun initView(){
         viewModel = ViewModelProvider(this)[SignUpViewModel::class.java]
+        loadingDialog = Functions.showLoadingDialog(requireContext())
     }
 
     private fun signUp(){
         binding.btnSignUp.setOnClickListener {
-            viewModel.requestSignUp(
-                binding.edName.text.toString(),
-                binding.edEmail.text.toString(),
-                binding.edPassword.text.toString()
-            )
+            if (binding.edConfirmPassword.text.toString() == binding.edPassword.text.toString()){
+                viewModel.requestSignUp(
+                    binding.edName.text.toString(),
+                    binding.edEmail.text.toString(),
+                    binding.edPassword.text.toString()
+                )
+                loadingDialog.show()
+            }else if (binding.edConfirmPassword.text.toString().isEmpty() || binding.edPassword.text.toString().isEmpty()){
+                Toast.makeText(context,"Request cannot be empty",Toast.LENGTH_SHORT).show()
+            }else if (binding.edConfirmPassword.text.toString() != binding.edPassword.text.toString()){
+                Toast.makeText(context,"Password must match",Toast.LENGTH_SHORT).show()
+            }
         }
         viewModel.isSuccessful.observe(viewLifecycleOwner, Observer {
             var message = ""
-            message = if (it) {
-                "Dang ky thanh cong"
+             if (it) {
+                 message = "Account registration successful"
+                 binding.edName.setText("")
+                 binding.edEmail.setText("")
+                 binding.edPassword.setText("")
+                 binding.edConfirmPassword.setText("")
             } else {
-                "Dang ky that bai"
+                 message = "Account registration failed"
             }
+            loadingDialog.dismiss()
             Toast.makeText(context, message, Toast.LENGTH_LONG).show()
         })
     }

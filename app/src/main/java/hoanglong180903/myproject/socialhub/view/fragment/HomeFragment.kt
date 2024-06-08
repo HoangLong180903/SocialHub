@@ -1,5 +1,6 @@
 package hoanglong180903.myproject.socialhub.view.fragment
 
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -26,6 +28,7 @@ import hoanglong180903.myproject.socialhub.databinding.FragmentHomeBinding
 import hoanglong180903.myproject.socialhub.interfaces.ItemPostOnClick
 import hoanglong180903.myproject.socialhub.model.UserModel
 import hoanglong180903.myproject.socialhub.utils.BundleUtils
+import hoanglong180903.myproject.socialhub.utils.Functions
 import hoanglong180903.myproject.socialhub.view.activity.ChatActivity
 import hoanglong180903.myproject.socialhub.view.activity.DetailPostActivity
 import hoanglong180903.myproject.socialhub.viewmodel.HomeViewModel
@@ -35,6 +38,7 @@ class HomeFragment : Fragment() , ItemPostOnClick {
     private lateinit var viewModel: HomeViewModel
     var user = UserModel()
     var database: FirebaseDatabase = FirebaseDatabase.getInstance()
+    lateinit var loadingDialog : Dialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,6 +61,7 @@ class HomeFragment : Fragment() , ItemPostOnClick {
 
     private fun initView() {
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+        loadingDialog = Functions.showLoadingDialog(requireContext())
     }
 
     private fun getData() {
@@ -70,6 +75,7 @@ class HomeFragment : Fragment() , ItemPostOnClick {
                 false
             )
         })
+        //get all posts
         viewModel.getPost()
         viewModel.posts.observe(viewLifecycleOwner, Observer { users ->
             val sortedStatuses = users.sortedByDescending { it.pTime }
@@ -104,13 +110,12 @@ class HomeFragment : Fragment() , ItemPostOnClick {
 
 
     private fun requestAddStories(){
-        database!!.reference.child("users")
+        database.reference.child("users")
             .child(FirebaseAuth.getInstance().uid!!)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     user = snapshot.getValue(UserModel::class.java)!!
                 }
-
                 override fun onCancelled(error: DatabaseError) {}
             })
         binding.cvAddStories.setOnClickListener {
@@ -120,12 +125,26 @@ class HomeFragment : Fragment() , ItemPostOnClick {
             startActivityForResult(mIntent, 75)
         }
     }
+    private fun requestAddStories(data : Intent){
+        viewModel.addUserStories(data,user)
+        viewModel.isSuccessful.observe(viewLifecycleOwner, Observer {
+            var message = ""
+            message = if (it) {
+                "Create stories successfully"
+            } else {
+                "Create stories failed"
+            }
+            loadingDialog.dismiss()
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        })
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (data != null) {
             if (data.data != null) {
-                viewModel.addUserStories(data,user)
+                loadingDialog.show()
+                requestAddStories(data)
             }
         }
     }
@@ -136,15 +155,10 @@ class HomeFragment : Fragment() , ItemPostOnClick {
     }
 
     override fun onClickReleaseEmotions(idPost: String, idUser: String) {
-//        viewModel.updatePostEmotions(idPost,idUser)
     }
 
     override fun onClickComment(idPost: String) {
         val bundle = Bundle().apply {
-//            putString("name", model.name)
-//            putString("email", model.email)
-//            putString("userId", model.id)
-//            putString("profileImage", model.image)
             putString("idPost",idPost)
         }
         val intent = Intent(context, DetailPostActivity::class.java)

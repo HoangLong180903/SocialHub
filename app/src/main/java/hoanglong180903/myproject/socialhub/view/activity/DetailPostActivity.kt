@@ -1,5 +1,6 @@
 package hoanglong180903.myproject.socialhub.view.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,6 +20,7 @@ import com.google.firebase.database.ValueEventListener
 import hoanglong180903.myproject.socialhub.R
 import hoanglong180903.myproject.socialhub.adapter.ChatAdapter
 import hoanglong180903.myproject.socialhub.adapter.CommentAdapter
+import hoanglong180903.myproject.socialhub.adapter.PostAdapter
 import hoanglong180903.myproject.socialhub.databinding.ActivityDetailPostBinding
 import hoanglong180903.myproject.socialhub.model.Posts
 import hoanglong180903.myproject.socialhub.view.fragment.ChatFragment
@@ -30,7 +32,7 @@ class DetailPostActivity : AppCompatActivity() {
     lateinit var ref : DatabaseReference
     lateinit var query : Query
     lateinit var viewModel : DetailPostViewModel
-
+    var mUid : String = FirebaseAuth.getInstance().currentUser!!.uid
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailPostBinding.inflate(layoutInflater)
@@ -85,6 +87,7 @@ class DetailPostActivity : AppCompatActivity() {
                             uId.toString()
                         )
                         getData(postId.toString())
+                        setLike(pId.toString())
                     }
                 }
 
@@ -147,6 +150,22 @@ class DetailPostActivity : AppCompatActivity() {
         viewModel.user.observe(this, Observer { user ->
             if (user != null) {
                 requestComment(pId,uId,user.name, user.image)
+            }
+        })
+    }
+    private fun setLike(postKey:String){
+        database.reference.child("Likes").addValueEventListener(object : ValueEventListener {
+            @SuppressLint("SuspiciousIndentation")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.child(postKey).hasChild(mUid)){
+                    binding.detailPostIconLike.setImageResource(R.drawable._107845)
+                }else{
+                    binding.detailPostIconLike.setImageResource(R.drawable._590951_200)
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
             }
         })
     }
