@@ -4,7 +4,10 @@ SocialHub
 -------------------------------------------------------
 A real time chat app with firebase database, firebase storage
 
-Architecture: Like MVVM
+• Architecture: MVVM Clean Architecture
+• Navigation: Navigation Component 
+• Firebase: Authetication, Firebase database store data, Firebase Messaging to to push Notification
+
 
 Splash Screen - Registration 
 -------------------------------------------------------
