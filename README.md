@@ -1,8 +1,4 @@
-Git clone : https://github.com/HoangLong180903/SocialHub.git
-
-Build app version 8.0.2, sdk 34
-
-link design figma: https://www.figma.com/design/Fv71mYoJdp5GB9FVCAVktC/Untitled?node-id=0-1&t=HREs9OJ2buzTJUqB-0
+Note: If you want to run this project, please re-setup Firebase sdk with your Firebase account, i don't provide Firebase pre-setup cause a few personal reasons. You can contact me to get right google-services.json file to run immediatelly.
 
 Splash Screen - Registration 
 -------------------------------------------------------
