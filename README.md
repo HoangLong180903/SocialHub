@@ -3,7 +3,8 @@ Note: If you want to run this project, please re-setup Firebase sdk with your Fi
 SocialHub
 -------------------------------------------------------
 A real time chat app with firebase database, firebase storage
-
+TECH
+-------------------------------------------------------
 • Architecture: MVVM Clean Architecture
 
 • Navigation: Navigation Component 
