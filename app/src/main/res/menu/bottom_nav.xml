@@ -7,11 +7,11 @@
         android:title="Home"
         android:icon="@drawable/_46449"/>
     <item
-        android:id="@+id/navCreate"
+        android:id="@+id/navShopping"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Create"
-        android:icon="@drawable/_948875"/>
+        android:title="Shopping"
+        android:icon="@drawable/baseline_shopping_bag_24"/>
     <item
         android:id="@+id/navMessage"
         android:layout_width="wrap_content"
