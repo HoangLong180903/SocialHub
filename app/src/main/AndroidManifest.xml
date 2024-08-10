@@ -45,9 +45,6 @@
             android:name=".view.activity.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.FavoriteActivity"
-            android:exported="false" />
-        <activity
             android:name=".view.activity.SplashScreenActivity"
             android:exported="true">
             <intent-filter>

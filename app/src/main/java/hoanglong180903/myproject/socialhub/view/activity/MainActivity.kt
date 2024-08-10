@@ -43,8 +43,8 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.homeFragment)
                     true
                 }
-                R.id.navShopping -> {
-                    navController.navigate(R.id.shoppingFragment)
+                R.id.navCreate -> {
+                    navController.navigate(R.id.createFragment)
                     true
                 }
                 R.id.navMessage -> {
