@@ -563,6 +563,7 @@ class MusicFragment : Fragment(), OnClickItemListener {
         }
     }
 
+    //test commit
     private fun setStatusBottomPlayOrPause() {
         if (isPlaying) {
             binding.mainIcPlayAndPause.setImageResource(R.drawable.ic_pause)
