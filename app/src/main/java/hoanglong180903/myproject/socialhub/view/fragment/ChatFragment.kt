@@ -106,8 +106,11 @@ class ChatFragment : Fragment() {
                     .error(R.drawable._144760)
                     .into(binding.chatProfile)
             }
-            val appID: Long = 853918929
-            val appSign: String = "f866272dd0272b300fc2bdceb85bce66d0de06f91b9bc8f313c84e1ebe460c4b"
+//            val appID: Long = 853918929
+//            val appSign: String = "f866272dd0272b300fc2bdceb85bce66d0de06f91b9bc8f313c84e1ebe460c4b"
+
+            val appID: Long = 1158567292
+            val appSign: String = "6f412bb67161d5921c29cb860017dd51a7c6811f4bffdc2e6b1697188eb5f80e"
 
             initCallInviteService(appID, appSign, FirebaseAuth.getInstance().uid.toString(), "User_${FirebaseAuth.getInstance().uid.toString()}")
 
@@ -309,8 +312,6 @@ class ChatFragment : Fragment() {
                 scope.showRequestReasonDialog(deniedList, message, "Allow", "Deny")
             }.request { _, _, _ -> }
     }
-
-
 }
 
 

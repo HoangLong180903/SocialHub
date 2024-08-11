@@ -69,5 +69,4 @@ class ActiveStatusUserAdapter (private val users: List<UserModel>) : RecyclerVie
             override fun onCancelled(error: DatabaseError) {}
         })
     }
-
 }

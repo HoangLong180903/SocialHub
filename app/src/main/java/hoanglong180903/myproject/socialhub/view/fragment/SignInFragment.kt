@@ -21,9 +21,13 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import hoanglong180903.myproject.socialhub.view.activity.MainActivity
 import hoanglong180903.myproject.socialhub.R
@@ -37,6 +41,9 @@ class SignInFragment : Fragment() {
     lateinit var binding: FragmentSignInBinding
     lateinit var viewModel: SignInViewModel
     private lateinit var loadingDialog: Dialog
+    private var RC_SIGN_IN = 100
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -56,9 +63,13 @@ class SignInFragment : Fragment() {
         binding.tvRegister.setOnClickListener(View.OnClickListener {
             navController?.navigate(R.id.action_signInFragment_to_signUpFragment)
         })
+        binding.loginTvForgotPassword.setOnClickListener(View.OnClickListener {
+            navController?.navigate(R.id.action_signInFragment_to_forgotPasswordFragment)
+        })
         initView()
         login()
         loginWithGoogle()
+        forgotPassword()
     }
 
     private fun initView() {
@@ -89,12 +100,77 @@ class SignInFragment : Fragment() {
             loadingDialog.dismiss()
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         })
+
+        viewModel.isCheckEmailVerified.observe(viewLifecycleOwner, Observer {
+            var text_message = ""
+           if (it){
+               text_message = "Logged in successfully"
+           }else{
+               text_message = "Please verify your email first."
+           }
+            loadingDialog.dismiss()
+            Toast.makeText(context, text_message, Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun loginWithGoogle() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_string))
+            .requestEmail()
+            .build()
+        mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
         binding.lnSignInWithGoogle.setOnClickListener {
-            Toast.makeText(context, "This feature cannot be used yet", Toast.LENGTH_SHORT).show()
+            val signIntent = mGoogleSignInClient.signInIntent
+            startActivityForResult(signIntent, RC_SIGN_IN)
         }
     }
 
+    private fun forgotPassword() {
+//        binding.loginTvForgotPassword.setOnClickListener {
+//            loadingDialog.show()
+//            FirebaseAuth.getInstance()
+//                .sendPasswordResetEmail(
+//                    "hoanglong180903@gmail.com"
+//                )
+//                .addOnSuccessListener {
+//                    loadingDialog.dismiss()
+//                    Toast.makeText(context, "Send Email Successful", Toast.LENGTH_SHORT).show()
+//                }
+//                .addOnFailureListener {
+//                    loadingDialog.dismiss()
+//                    it.message?.let { it1 -> Log.d("forgot password", it1) }
+//                }
+//        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_SIGN_IN) {
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account: GoogleSignInAccount = task.getResult(ApiException::class.java)
+                firebaseAuthWithGoogle(account)
+            } catch (e: ApiException) {
+                Log.d("Sign in google", "Google sign in failed $e")
+            }
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
+        val credential: AuthCredential = GoogleAuthProvider.getCredential(acct.idToken, null)
+        mAuth.signInWithCredential(credential)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    val user: FirebaseUser = mAuth.currentUser!!
+                    Toast.makeText(context, user.email, Toast.LENGTH_SHORT).show()
+                    val intent = Intent(context, MainActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Log.d("Sign in google", "sign in with credential failed ${it.exception}")
+
+                }
+            }.addOnFailureListener {
+                Log.d("Sign in google", "sign in with credential failed ${it.message}")
+            }
+    }
 }

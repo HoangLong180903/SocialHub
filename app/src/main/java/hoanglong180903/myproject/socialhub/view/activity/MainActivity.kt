@@ -13,7 +13,13 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.messaging.FirebaseMessaging
 import hoanglong180903.myproject.socialhub.R
 import hoanglong180903.myproject.socialhub.databinding.ActivityMainBinding
+import hoanglong180903.myproject.socialhub.viewmodel.DeezerViewModel
 import hoanglong180903.myproject.socialhub.viewmodel.MessageViewModel
+import hoanglong180903.myproject.socialhub.viewmodelFactory.DeezerViewModelFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
@@ -47,6 +53,10 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.createFragment)
                     true
                 }
+                R.id.navMusic -> {
+                    navController.navigate(R.id.musicFragment)
+                    true
+                }
                 R.id.navMessage -> {
                     navController.navigate(R.id.messageFragment)
                     true
@@ -68,6 +78,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun init(){
         viewModel = ViewModelProvider(this)[MessageViewModel::class.java]
+
     }
 
     private fun getToken(){

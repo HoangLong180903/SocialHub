@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id("com.google.gms.google-services")
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -59,12 +60,13 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:21.2.0")
 
     //mvvm
-    def lifecycle_version = "2.7.0"
+    def lifecycle_version = "2.8.4"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     // Annotation processor
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
 
 
     //firebase
@@ -102,5 +104,25 @@ dependencies {
     implementation 'com.android.volley:volley:1.2.1'
 
     implementation 'com.google.auth:google-auth-library-oauth2-http:1.19.0'
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+
+    //media
+    implementation 'androidx.media:media:1.7.0-alpha01'
+
+    //media3
+    implementation "androidx.media3:media3-exoplayer:1.0.2"
+    implementation "androidx.media3:media3-exoplayer-dash:1.0.2"
+    implementation "androidx.media3:media3-ui:1.0.2"
+
+    // Room components
+    implementation "androidx.room:room-runtime:2.6.1"
+    kapt "androidx.room:room-compiler:2.6.1"
+    implementation "androidx.room:room-ktx:2.6.1"
+    androidTestImplementation "androidx.room:room-testing:2.6.1"
 
 }
