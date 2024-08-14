@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.CreateFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#F5F5F5"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:gravity="center_vertical"
+            android:background="#FFFFFF"
+            >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/create_imgUser"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/_144760" />
+
+            <TextView
+                android:id="@+id/create_tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:layout_margin="10dp"
+                />
+        </LinearLayout>
+        <EditText
+            android:id="@+id/create_edStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="What's on your mind?"
+            android:background="@drawable/bg_edittext"
+            android:padding="10dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/border_shadow"
+            >
+
+            <LinearLayout
+                android:id="@+id/create_lnImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/add_image" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:text="Add Image"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/create_imageUrl"
+                android:visibility="gone"
+                android:scaleType="fitXY"
+                />
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/create_btnPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:layout_gravity="center"
+            android:layout_margin="25dp"
+            android:background="@drawable/bg_button"
+            android:textColor="#FFF"
+            />
+    </LinearLayout>
+</FrameLayout>

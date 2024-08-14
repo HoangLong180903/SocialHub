@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navNews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Home"
+        android:icon="@drawable/_46449"/>
+    <item
+        android:id="@+id/navShopping"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Shopping"
+        android:icon="@drawable/_662503"/>
+    <item
+        android:id="@+id/navMusic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Music"
+        android:icon="@drawable/music_que"/>
+    <item
+        android:id="@+id/navMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Message"
+        android:icon="@drawable/_447513"/>
+    <item
+        android:id="@+id/navUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="User"
+        android:icon="@drawable/_144760"/>
+</menu>
