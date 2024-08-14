@@ -41,13 +41,12 @@ class SignUpRepository(val application: Application) {
                     val user = auth.currentUser
                     user?.sendEmailVerification()
                         ?.addOnCompleteListener { verificationTask ->
-                            if (verificationTask.isSuccessful) {
+                            if (verificationTask.isSuccessful && user.isEmailVerified) {
                                 Log.d("log sign up", "Verification email sent to $email")
                                 val firebaseUser: FirebaseUser = auth.currentUser!!
                                 val userID = firebaseUser.uid
                                 val token = database.push().key
-                                val user =
-                                    UserModel(username, "No image", email, password, token, userID)
+                                val user = UserModel(username, "No image", email, password, token, userID)
                                     database.child(userID).setValue(user).addOnCompleteListener {
                                     if (it.isSuccessful) {
                                         Log.d("log sign up", "Dang ky thanh cong")

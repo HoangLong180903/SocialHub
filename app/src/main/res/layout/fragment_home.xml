@@ -10,7 +10,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="#F5F5F5"
         >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:background="#FFF"
+            >
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/home_imgUserPosts"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/_144760"
+                android:layout_margin="5dp"/>
+            <TextView
+                android:id="@+id/home_edPosts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="What's on your mind?"
+                android:gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:drawableRight="@drawable/baseline_image_24"
+                />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -27,16 +50,26 @@
                     android:layout_width="100dp"
                     android:layout_height="150dp"
                     >
-                    <ImageView
-                        android:id="@+id/imgUser"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:src="@drawable/_144760"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:scaleType="fitXY"
-                        />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+                        <ImageView
+                            android:id="@+id/imgUser"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:src="@drawable/bg_edittext"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:scaleType="fitXY"
+                            />
+                        <ProgressBar
+                            android:id="@+id/home_pgLoading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
                     <ImageView
                         android:id="@+id/icon_add"
                         android:layout_width="30dp"
@@ -75,14 +108,14 @@
                 android:layout_margin="5dp"
                 />
         </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rc_post"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_post"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
-            />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_post" />
 
     </LinearLayout>
 </FrameLayout>

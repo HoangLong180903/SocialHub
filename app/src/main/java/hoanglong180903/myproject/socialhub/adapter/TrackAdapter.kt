@@ -29,7 +29,7 @@ class TracksAdapter(private var context:Context, private val listener: OnClickIt
         val currentTrack = tracks[position]
         holder.trackTitle.text = currentTrack.title
         holder.trackArtist.text = currentTrack.artist.name
-        holder.preview.text = currentTrack.preview
+//        holder.preview.text = currentTrack.preview
         Glide.with(holder.itemView.context).load(currentTrack.artist.picture)
             .into(holder.trackImage)
         // Set the correct icon based on the current track

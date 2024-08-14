@@ -12,8 +12,19 @@ object RetrofitInstance {
             .build()
     }
 
+    private val retrofitShopping by lazy {
+        Retrofit.Builder()
+            .baseUrl(Contacts.BASE_URL_SHOPPING)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
     val api: DeezerApiService by lazy {
         retrofit.create(DeezerApiService::class.java)
+    }
+
+    val api_shopping : ShoppingApiService by lazy {
+        retrofitShopping.create(ShoppingApiService::class.java)
     }
 
 }

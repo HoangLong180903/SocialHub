@@ -43,7 +43,7 @@ android {
 
 dependencies {
 
-    implementation 'androidx.work:work-runtime-ktx:2.7.0'
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.5.0'
@@ -124,5 +124,11 @@ dependencies {
     kapt "androidx.room:room-compiler:2.6.1"
     implementation "androidx.room:room-ktx:2.6.1"
     androidTestImplementation "androidx.room:room-testing:2.6.1"
+
+
+    //zalopay
+//    D:\Project_ca_nhan\SocialHubProject\app\libs
+
+    implementation fileTree(dir: 'D:\\Project_ca_nhan\\SocialHubProject\\app\\libs', include: ['*.aar', '*.jar'])
 
 }

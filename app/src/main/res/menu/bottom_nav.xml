@@ -7,17 +7,17 @@
         android:title="Home"
         android:icon="@drawable/_46449"/>
     <item
-        android:id="@+id/navCreate"
+        android:id="@+id/navShopping"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Create"
-        android:icon="@drawable/_948875"/>
+        android:title="Shopping"
+        android:icon="@drawable/_662503"/>
     <item
         android:id="@+id/navMusic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Music"
-        android:icon="@drawable/baseline_library_music_24"/>
+        android:icon="@drawable/music_que"/>
     <item
         android:id="@+id/navMessage"
         android:layout_width="wrap_content"

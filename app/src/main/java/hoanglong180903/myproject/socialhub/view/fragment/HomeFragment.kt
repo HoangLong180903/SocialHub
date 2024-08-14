@@ -3,6 +3,7 @@ package hoanglong180903.myproject.socialhub.view.fragment
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.StyleSpan
@@ -14,8 +15,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -32,6 +38,7 @@ import hoanglong180903.myproject.socialhub.utils.Functions
 import hoanglong180903.myproject.socialhub.view.activity.ChatActivity
 import hoanglong180903.myproject.socialhub.view.activity.DetailPostActivity
 import hoanglong180903.myproject.socialhub.viewmodel.HomeViewModel
+import javax.sql.DataSource
 
 class HomeFragment : Fragment() , ItemPostOnClick {
     lateinit var binding: FragmentHomeBinding
@@ -39,6 +46,7 @@ class HomeFragment : Fragment() , ItemPostOnClick {
     var user = UserModel()
     var database: FirebaseDatabase = FirebaseDatabase.getInstance()
     lateinit var loadingDialog : Dialog
+    private var navController: NavController? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,15 +61,18 @@ class HomeFragment : Fragment() , ItemPostOnClick {
         val title = SpannableString("Home")
         title.setSpan(StyleSpan(Typeface.BOLD), 0, title.length, 0)
         activity?.title = title
-        initView()
+        initView(view)
         getData()
         fetchInfoUser(FirebaseAuth.getInstance().uid.toString())
         requestAddStories()
+        navPostsScreen()
     }
 
-    private fun initView() {
+    private fun initView(view : View) {
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         loadingDialog = Functions.showLoadingDialog(requireContext())
+        navController = Navigation.findNavController(view);
+
     }
 
     private fun getData() {
@@ -97,12 +108,37 @@ class HomeFragment : Fragment() , ItemPostOnClick {
             if (user != null) {
                 if (user.image == "No image") {
                     binding.imgUser.setImageResource(R.drawable._144760)
+                    binding.homeImgUserPosts.setImageResource(R.drawable._144760)
                 }else{
                     Glide.with(this)
                         .load(user.image)
-                        .placeholder(R.drawable._144760)
-                        .error(R.drawable._144760)
+                        .listener(object : RequestListener<Drawable> {
+                            override fun onLoadFailed(
+                                e: GlideException?,
+                                model: Any?,
+                                target: Target<Drawable>,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                binding.homePgLoading.visibility = View.GONE
+                                return false
+                            }
+
+                            override fun onResourceReady(
+                                resource: Drawable,
+                                model: Any,
+                                target: Target<Drawable>?,
+                                dataSource: com.bumptech.glide.load.DataSource,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                binding.homePgLoading.visibility = View.GONE
+                                return false
+                            }
+                        })
                         .into(binding.imgUser)
+
+                    Glide.with(this)
+                        .load(user.image)
+                        .into(binding.homeImgUserPosts)
                 }
             }
         })
@@ -166,5 +202,11 @@ class HomeFragment : Fragment() , ItemPostOnClick {
         startActivity(intent)
     }
 
+    //new
+    private fun navPostsScreen(){
+        binding.homeEdPosts.setOnClickListener {
+            navController?.navigate(R.id.action_homeFragment_to_createFragment)
+        }
+    }
 
 }

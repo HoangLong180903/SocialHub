@@ -3,6 +3,7 @@ package hoanglong180903.myproject.socialhub.viewmodel
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -76,7 +77,7 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun sendCameraPhoto(
-        data: Intent, messageTxt: String,
+        data: Uri, messageTxt: String,
         senderUid: String,
         senderRoom: String,
         receiverRoom: String,

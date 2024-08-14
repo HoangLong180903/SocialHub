@@ -17,6 +17,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
@@ -38,9 +40,10 @@ class CreateFragment : Fragment() {
     private var urlImageUser :  String = ""
     private var nameUser : String = ""
     lateinit var loadingDialog: Dialog
+    private var navController: NavController? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -56,14 +59,16 @@ class CreateFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView()
+        initView(view)
         fetchInfoUser(FirebaseAuth.getInstance().uid.toString())
         pickerImageGallery()
     }
 
-    private fun initView(){
+    private fun initView(view : View){
         viewModel = ViewModelProvider(this)[CreateViewModel::class.java]
         loadingDialog = Functions.showLoadingDialog(requireContext())
+        navController = Navigation.findNavController(view);
+
     }
 
     private fun fetchInfoUser(uid: String) {
@@ -115,6 +120,7 @@ class CreateFragment : Fragment() {
                 selectedImageUri = null
                 binding.createImageUrl.visibility = View.GONE
                 binding.createLnImage.visibility = View.VISIBLE
+                navController?.navigate(R.id.action_createFragment_to_homeFragment)
             } else {
                 message = "Create posts failed"
             }

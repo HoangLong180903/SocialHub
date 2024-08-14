@@ -1,6 +1,9 @@
 package hoanglong180903.myproject.socialhub.view.activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.StrictMode
+import android.os.StrictMode.ThreadPolicy
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -11,15 +14,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.messaging.FirebaseMessaging
+import hoanglong180903.myproject.socialhub.Helper.AppInfo
 import hoanglong180903.myproject.socialhub.R
 import hoanglong180903.myproject.socialhub.databinding.ActivityMainBinding
-import hoanglong180903.myproject.socialhub.viewmodel.DeezerViewModel
 import hoanglong180903.myproject.socialhub.viewmodel.MessageViewModel
-import hoanglong180903.myproject.socialhub.viewmodelFactory.DeezerViewModelFactory
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import vn.zalopay.sdk.Environment
+import vn.zalopay.sdk.ZaloPaySDK
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
@@ -33,6 +33,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.mainToolBar)
+
+        //register zalo pay
+        val policy = ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+
+        ZaloPaySDK.init(AppInfo.APP_ID, Environment.SANDBOX)
 
         bottomNavigationView = findViewById(R.id.bottomNavView)
         navHostFragment =
@@ -49,8 +55,8 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.homeFragment)
                     true
                 }
-                R.id.navCreate -> {
-                    navController.navigate(R.id.createFragment)
+                R.id.navShopping -> {
+                    navController.navigate(R.id.shoppingFragment)
                     true
                 }
                 R.id.navMusic -> {
@@ -103,6 +109,11 @@ class MainActivity : AppCompatActivity() {
                 Log.i("My token",token)
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        ZaloPaySDK.getInstance().onResult(intent)
     }
 
 }

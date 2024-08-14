@@ -1,36 +1,43 @@
 package hoanglong180903.myproject.socialhub.view.fragment
 
-import hoanglong180903.myproject.socialhub.adapter.TracksAdapter
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.SpannableString
 import android.text.style.StyleSpan
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import hoanglong180903.myproject.socialhub.viewmodelFactory.DeezerViewModelFactory
 import hoanglong180903.myproject.socialhub.R
 import hoanglong180903.myproject.socialhub.adapter.AlbumAdapter
+import hoanglong180903.myproject.socialhub.adapter.TracksAdapter
 import hoanglong180903.myproject.socialhub.broadcast.NetworkBroadcast
 import hoanglong180903.myproject.socialhub.databinding.FragmentMusicBinding
 import hoanglong180903.myproject.socialhub.listener.OnClickItemListener
+import hoanglong180903.myproject.socialhub.model.Favorite
 import hoanglong180903.myproject.socialhub.model.Track
 import hoanglong180903.myproject.socialhub.service.PlayMusicService
 import hoanglong180903.myproject.socialhub.utils.Contacts
+import hoanglong180903.myproject.socialhub.view.activity.FavoriteActivity
 import hoanglong180903.myproject.socialhub.viewmodel.DeezerViewModel
+import hoanglong180903.myproject.socialhub.viewmodel.FavoriteViewModel
+import hoanglong180903.myproject.socialhub.viewmodelFactory.DeezerViewModelFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,8 +50,7 @@ class MusicFragment : Fragment(), OnClickItemListener {
     private var isPlaying = false
     private var isMediaPlayerServiceRunning = false // false = pause
     private var currentTrackId: Int? = null
-
-    private var isReceiverRegistered = false
+    private lateinit var favoriteViewModel: FavoriteViewModel
 
     //register broadcast
     private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
@@ -62,6 +68,7 @@ class MusicFragment : Fragment(), OnClickItemListener {
     private lateinit var binding: FragmentMusicBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -84,7 +91,6 @@ class MusicFragment : Fragment(), OnClickItemListener {
     }
 
     private fun initView() {
-        // Initializing views, but not registering the receiver here anymore
         //Đăng ký broadcast
         LocalBroadcastManager.getInstance(requireContext())
             .registerReceiver(receiver, IntentFilter("send_data_to_activity"))
@@ -93,6 +99,8 @@ class MusicFragment : Fragment(), OnClickItemListener {
             this,
             DeezerViewModelFactory(requireActivity().application)
         )[DeezerViewModel::class.java]
+
+        favoriteViewModel = ViewModelProvider(this)[FavoriteViewModel::class.java]
     }
 
     //setup recyclerview
@@ -156,15 +164,15 @@ class MusicFragment : Fragment(), OnClickItemListener {
     }
 
     override fun onItemClickFavorite(track: Track) {
-//        val favorite = Favorite(
-//            0,
-//            track.title,
-//            track.artist.name,
-//            track.preview,
-//            track.artist.picture
-//        )
-//        favoriteViewModel.insertFavorite(favorite)
-//        Toast.makeText(this@MainActivity, "Successfully added track!", Toast.LENGTH_LONG).show()
+        val favorite = Favorite(
+            0,
+            track.title,
+            track.artist.name,
+            track.preview,
+            track.artist.picture
+        )
+        favoriteViewModel.insertFavorite(favorite)
+        Toast.makeText(requireContext(), "Successfully added track!", Toast.LENGTH_LONG).show()
     }
 
     override fun onItemClickIntent(track: Track) {
@@ -287,21 +295,37 @@ class MusicFragment : Fragment(), OnClickItemListener {
         connectivityLiveData.observe(requireActivity(), Observer { isAvailable ->
             when (isAvailable) {
                 false -> {
-                    requireActivity().runOnUiThread(Runnable {
-                        Thread.sleep(2000)
+                    Handler(Looper.getMainLooper()).postDelayed({
                         sendActionService(PlayMusicService.ACTION_PAUSE)
                         Toast.makeText(requireContext(), "Không có kết nối mạng", Toast.LENGTH_SHORT).show()
-                    })
+                    }, 2000) // Delay of 2 seconds
                 }
 
                 true -> {
-                    requireActivity().runOnUiThread(Runnable {
-                        Thread.sleep(2000)
+                    Handler(Looper.getMainLooper()).postDelayed({
                         sendActionService(PlayMusicService.ACTION_RESUME)
-                    })
+                    }, 2000) // Delay of 2 seconds
                 }
             }
         })
     }
-    //test
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_item, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.icon_favorite) {
+            val mIntent = Intent(requireContext(), FavoriteActivity::class.java)
+            requireContext().startActivity(mIntent)
+        }
+        return super.onOptionsItemSelected(item)
+
+    }
+
+
+
 }

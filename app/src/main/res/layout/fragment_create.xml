@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#FFF"
+        android:background="#F5F5F5"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -17,6 +17,7 @@
             android:orientation="horizontal"
             android:padding="5dp"
             android:gravity="center_vertical"
+            android:background="#FFFFFF"
             >
 
             <de.hdodenhof.circleimageview.CircleImageView

@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.EmailAuthProvider
@@ -21,6 +22,8 @@ import com.google.firebase.auth.FirebaseAuth
 import hoanglong180903.myproject.socialhub.R
 import hoanglong180903.myproject.socialhub.databinding.FragmentProfileBinding
 import hoanglong180903.myproject.socialhub.utils.Functions
+import hoanglong180903.myproject.socialhub.view.activity.MainActivity
+import hoanglong180903.myproject.socialhub.view.activity.ProfileActivity
 import hoanglong180903.myproject.socialhub.viewmodel.ProfileViewModel
 
 
@@ -30,15 +33,11 @@ class ProfileFragment : Fragment() {
     private var navController: NavController? = null
     lateinit var viewModel: ProfileViewModel
     lateinit var loadingDialog: Dialog
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -86,6 +85,10 @@ class ProfileFragment : Fragment() {
             intent.action = Intent.ACTION_GET_CONTENT
             intent.type = "image/*"
             startActivityForResult(intent, 45)
+        }
+        binding.profileBtnCancel.setOnClickListener {
+            val intent = Intent(context, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 

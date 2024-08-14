@@ -21,7 +21,7 @@
             <ImageView
                 android:id="@+id/item_receive_photo_image"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:scaleType="fitXY"
                 android:visibility="gone"
                 app:srcCompat="@drawable/_144760" />

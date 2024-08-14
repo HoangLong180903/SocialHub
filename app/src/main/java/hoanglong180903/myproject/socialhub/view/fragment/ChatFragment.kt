@@ -2,12 +2,16 @@ package hoanglong180903.myproject.socialhub.view.fragment
 
 import android.Manifest
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.app.Dialog
+import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +19,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -45,6 +50,10 @@ import hoanglong180903.myproject.socialhub.viewmodel.ChatViewModel
 import im.zego.zegoexpress.constants.ZegoRoomStateChangedReason
 import org.json.JSONObject
 import timber.log.Timber
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.Date
 
 
@@ -53,15 +62,24 @@ class ChatFragment : Fragment() {
     private var navController: NavController? = null
     private lateinit var viewModel: ChatViewModel
     private val senderUid = FirebaseAuth.getInstance().uid
-    private val REQUEST_IMAGE_CAPTURE = 1
+//    private val REQUEST_IMAGE_CAPTURE = 200
+    private val REQUEST_IMAGE_CAPTURE = 7171
+    private val MY_RESULT_LOAD_IMAGE = 7172
     var senderRoom: String = ""
     var receiverRoom: String = ""
-    var token : String = ""
-    var nameFCM : String = ""
+    var token: String = ""
+    var nameFCM: String = ""
     private var imageBitmap: Bitmap? = null
-    var database : FirebaseDatabase = FirebaseDatabase.getInstance()
-    lateinit var functions : Contacts
+    var database: FirebaseDatabase = FirebaseDatabase.getInstance()
+    lateinit var functions: Contacts
     lateinit var loadingDialog: Dialog
+
+    //    private val REQUEST_IMAGE_CAPTURE = 1
+    private lateinit var photoUri: Uri
+    private lateinit var currentPhotoPath: String
+    private val pic_id = 123
+    private lateinit var fileUri: Uri
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -112,14 +130,19 @@ class ChatFragment : Fragment() {
             val appID: Long = 1158567292
             val appSign: String = "6f412bb67161d5921c29cb860017dd51a7c6811f4bffdc2e6b1697188eb5f80e"
 
-            initCallInviteService(appID, appSign, FirebaseAuth.getInstance().uid.toString(), "User_${FirebaseAuth.getInstance().uid.toString()}")
+            initCallInviteService(
+                appID,
+                appSign,
+                FirebaseAuth.getInstance().uid.toString(),
+                "User_${FirebaseAuth.getInstance().uid.toString()}"
+            )
 
             initVoiceButton(userId.toString())
 
             initVideoButton(userId.toString())
 
             offlineUsePermission()
-            requestSendMessage(userId.toString(), token,name.toString())
+            requestSendMessage(userId.toString(), token, name.toString())
             getData(senderRoom)
         }
     }
@@ -143,12 +166,13 @@ class ChatFragment : Fragment() {
             binding.iconAddFile.visibility = View.GONE
         }
 
-        binding.iconRecord.setOnClickListener {
-
+        binding.iconCollapseLayout.setOnClickListener {
+            binding.lnCameraPhotoImage.visibility = View.GONE
+            binding.iconAddFile.visibility = View.VISIBLE
         }
     }
 
-    private fun requestSendMessage(receiver: String , token : String , name:String) {
+    private fun requestSendMessage(receiver: String, token: String, name: String) {
         val date = Date()
         val senderRoom = senderUid + receiver
         val receiverRoom = receiver + senderUid
@@ -187,35 +211,85 @@ class ChatFragment : Fragment() {
             if (resultCode == Activity.RESULT_OK) {
                 if (data!!.data != null) {
                     loadingDialog.show()
-                    viewModel.sendPhotoGallery(data, "Photo", senderUid!!, senderRoom, receiverRoom,token,
+                    viewModel.sendPhotoGallery(
+                        data, "Photo", senderUid!!, senderRoom, receiverRoom, token,
                         requireContext(), nameFCM
                     )
                 }
             }
-        } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            loadingDialog.show()
-            viewModel.sendCameraPhoto(
-                data!!, "camera", senderUid!!, senderRoom, receiverRoom,token,
-                requireContext(), nameFCM
-            )
+        }
+//        else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_IMAGE_CAPTURE && data != null) {
+//            loadingDialog.show()
+//            viewModel.sendCameraPhoto(
+//                data, "camera", senderUid!!, senderRoom, receiverRoom,token,
+//                requireContext(), nameFCM
+//            )
+//        binding.imageSend.setImageBitmap(data!!.extras!!.get("data") as Bitmap)
+        else if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            if (resultCode == RESULT_OK){
+                try {
+                    val thumbnail : Bitmap = MediaStore.Images.Media
+                        .getBitmap(requireActivity().contentResolver,
+                            fileUri)
+//                    binding.imageSend.setImageBitmap(thumbnail)
+                    loadingDialog.show()
+                    viewModel.sendCameraPhoto(
+                        fileUri, "camera", senderUid!!, senderRoom, receiverRoom,token,
+                        requireContext(), nameFCM
+                    )
+                }catch (e : FileNotFoundException){
+                    e.printStackTrace()
+                }
+            }
+        }
+        else if (resultCode == MY_RESULT_LOAD_IMAGE){
+            try {
+                val imageUri : Uri = data!!.data!!
+                val inputStream = requireActivity().contentResolver.openInputStream(imageUri)
+                val selectedImage = BitmapFactory.decodeStream(inputStream)
+//                binding.imageSend.setImageBitmap(selectedImage)
+                fileUri = imageUri
+                loadingDialog.show()
+                viewModel.sendCameraPhoto(
+                    fileUri, "camera", senderUid!!, senderRoom, receiverRoom,token,
+                    requireContext(), nameFCM
+                )
+            }catch (e : FileNotFoundException){
+                e.printStackTrace()
+            }
         }
     }
-    private fun requestSend(){
+
+    private fun requestSend() {
         viewModel.isSuccessful.observe(viewLifecycleOwner, Observer {
             loadingDialog.dismiss()
         })
     }
+
     private fun openGallery() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        intent.type = "image/*"
+//        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+//        intent.type = "image/*"
+//        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
+
+//        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//        startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE)
+
+        val values = ContentValues()
+        values.put(MediaStore.Images.Media.TITLE, "New Picture")
+        values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera")
+        fileUri = requireActivity().contentResolver.insert(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values
+        )!!
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
     }
 
-    private fun openRecord(){
+    private fun openRecord() {
 
     }
 
-    private fun initVideoButton(idUserListener : String) {
+    private fun initVideoButton(idUserListener: String) {
         binding.iconVideoCall.setIsVideoCall(true)
         binding.iconVideoCall.resourceID = "zego_data"
         binding.iconVideoCall.setOnClickListener { view ->
@@ -232,7 +306,7 @@ class ChatFragment : Fragment() {
 
     }
 
-    private fun initVoiceButton(idUserListener : String) {
+    private fun initVoiceButton(idUserListener: String) {
         binding.iconPhoneCall.setIsVideoCall(false)
         binding.iconPhoneCall.resourceID = "zego_data"
         val targetUserID = idUserListener.toString()
@@ -312,6 +386,19 @@ class ChatFragment : Fragment() {
                 scope.showRequestReasonDialog(deniedList, message, "Allow", "Deny")
             }.request { _, _, _ -> }
     }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(requireContext(), "Camera permission granted", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(requireContext(), "Camera permission denied", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
 }
 
 

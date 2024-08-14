@@ -157,7 +157,7 @@ class ChatRepository(val application: Application) {
     }
 
     fun sendCameraPhoto(
-        data: Intent,
+        data: Uri,
         messageTxt: String,
         senderUid: String,
         senderRoom: String,
@@ -166,7 +166,7 @@ class ChatRepository(val application: Application) {
         context : Context,
         name : String
     ) {
-        val selectedImage: Uri = data.data!!
+        val selectedImage: Uri = data
         val calendar = Calendar.getInstance()
         val reference: StorageReference =
             storage.reference.child("Chats").child(calendar.timeInMillis.toString() + "")

@@ -2,15 +2,20 @@ package hoanglong180903.myproject.socialhub.adapter
 
 import android.R.attr.data
 import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
 import android.text.format.DateUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -41,6 +46,8 @@ class PostAdapter (private val users: List<Posts>,
         val tvTitle : TextView = itemView.findViewById(R.id.item_post_title)
         val iconLike : ImageView = itemView.findViewById(R.id.item_post_iconLike)
         val iconComment : ImageView = itemView.findViewById(R.id.item_post_iconComment)
+        val progressLoading : ProgressBar = itemView.findViewById(R.id.item_post_progress)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoriesViewModel {
@@ -56,7 +63,7 @@ class PostAdapter (private val users: List<Posts>,
         }else{
             Glide.with(holder.itemView.context)
                 .load(item.uImage)
-                .placeholder(R.drawable._144760)
+//                .placeholder(R.drawable._144760)
                 .error(R.drawable._144760)
                 .into(holder.imgUser)
         }
@@ -65,7 +72,29 @@ class PostAdapter (private val users: List<Posts>,
         holder.tvTitle.text = item.pTitle
         Glide.with(holder.itemView.context)
             .load(item.pImage)
-            .placeholder(R.drawable._144760)
+            .placeholder(R.drawable.ic_loading)
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    holder.progressLoading.visibility = View.VISIBLE
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable,
+                    model: Any,
+                    target: Target<Drawable>?,
+                    dataSource: com.bumptech.glide.load.DataSource,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    holder.progressLoading.visibility = View.GONE
+                    return false
+                }
+            })
             .error(R.drawable._144760)
             .into(holder.imgPost)
         holder.tvEmotions.text = "${item.pLikes} Like"

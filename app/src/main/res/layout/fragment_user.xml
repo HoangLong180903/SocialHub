@@ -6,26 +6,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.fragment.UserFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:background="#EEEEEE"
+        android:background="#F5F5F5"
+
         >
         <LinearLayout
+            android:id="@+id/ln_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="10dp"
+            android:padding="5dp"
             >
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_imgUser"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/_144760"
-                android:layout_margin="5dp"/>
+                android:src="@drawable/_144760" />
             <TextView
                 android:id="@+id/user_tvName"
                 android:layout_width="wrap_content"
@@ -43,29 +44,22 @@
                 android:textStyle="bold"
                 />
         </LinearLayout>
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"
-            >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:gravity="center"
-            android:background="@drawable/border_user_fragment"
-            android:padding="20dp"
+            android:padding="10dp"
+            android:layout_below="@id/ln_top"
             >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_margin="5dp"
                 >
                 <LinearLayout
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/border_shadow"
                     android:backgroundTint="#A8C6DE"
                     >
@@ -99,11 +93,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_margin="5dp"
+
                 >
                 <LinearLayout
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/border_shadow"
                     android:backgroundTint="#FFBE51"
                     >
@@ -137,11 +131,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_margin="5dp"
                 >
                 <LinearLayout
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/border_shadow"
                     android:backgroundTint="#D64C4C"
                     >
@@ -162,6 +155,7 @@
                     android:textSize="16dp"
                     />
                 <ImageView
+                    android:id="@+id/user_btnHelp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/baseline_arrow_forward_ios_24"
@@ -174,11 +168,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_margin="5dp"
                 >
                 <LinearLayout
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/border_shadow"
                     android:backgroundTint="#C1C2C3"
                     >
@@ -199,6 +192,7 @@
                     android:textSize="16dp"
                     />
                 <ImageView
+                    android:id="@+id/user_btnSetting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/baseline_arrow_forward_ios_24"
@@ -211,11 +205,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_margin="5dp"
                 >
                 <LinearLayout
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/border_shadow"
                     android:backgroundTint="#55C555"
                     >
@@ -244,8 +237,6 @@
                     />
             </LinearLayout>
         </LinearLayout>
-
-        </ScrollView>
-    </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>

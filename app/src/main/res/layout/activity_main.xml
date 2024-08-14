@@ -12,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:id="@+id/main_toolBar"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:background="#F5F5F5"
+        />
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:name="androidx.navigation.fragment.NavHostFragment"
