@@ -10,11 +10,13 @@ TECH
 
 • Navigation: Navigation Component 
 
+• Kotlin coroutines 
+
 • Firebase: Authetication, Firebase database store data, Firebase Messaging to to push Notification
  
 • Service, broadcast, notification channel
 
-• Room/Glide library
+• Retrofit/Room/Glide library
 
 • Integrate Zalopay, Video/Phone called
 
