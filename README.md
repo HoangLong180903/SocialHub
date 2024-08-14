@@ -6,11 +6,18 @@ A real time chat app with firebase database, firebase storage
 
 TECH
 -------------------------------------------------------
-• Architecture: MVVM Clean Architecture
+• Architecture: MVVM Architecture
 
 • Navigation: Navigation Component 
 
 • Firebase: Authetication, Firebase database store data, Firebase Messaging to to push Notification
+ 
+• Service, broadcast, notification channel
+
+• Room/Glide library
+
+• Integrate Zalopay, Video/Phone called
+
 
 
 
