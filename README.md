@@ -18,7 +18,8 @@ TECH
 
 • Retrofit/Room/Glide library
 
-• Integrate Zalopay, Video/Phone called
+• Integrate Zalopay payment
+
 
 
 
